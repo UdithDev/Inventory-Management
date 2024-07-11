@@ -11,4 +11,6 @@
             fx:controller="com.thogakade.controller.ItemViewController"
             prefHeight="400.0" prefWidth="600.0">
 
+
+
 </AnchorPane>
