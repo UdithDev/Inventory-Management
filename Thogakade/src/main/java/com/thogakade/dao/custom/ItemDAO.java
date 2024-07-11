@@ -1,4 +1,7 @@
 package com.thogakade.dao.custom;
 
-public interface ItemDAO {
+import com.thogakade.dao.CrudDAO;
+import com.thogakade.entity.Item;
+
+public interface ItemDAO extends CrudDAO<Item> {
 }

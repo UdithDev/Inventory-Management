@@ -1,4 +1,7 @@
 package com.thogakade.dao.custom;
 
-public interface CustomerDAO {
+import com.thogakade.dao.CrudDAO;
+import com.thogakade.entity.Customer;
+
+public interface CustomerDAO extends CrudDAO<Customer> {
 }
