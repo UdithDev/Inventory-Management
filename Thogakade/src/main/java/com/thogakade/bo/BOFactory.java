@@ -1,5 +1,9 @@
 package com.thogakade.bo;
 
+import com.thogakade.bo.custom.impl.CustomerBOImpl;
+import com.thogakade.bo.custom.impl.ItemBOImpl;
+import com.thogakade.bo.custom.impl.OrderBOImpl;
+
 public class BOFactory {
 
     private static BOFactory boFactory;
