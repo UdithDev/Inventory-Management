@@ -1,5 +1,9 @@
 package com.thogakade.dao;
 
+import com.thogakade.dao.custom.impl.CustomerDAOImpl;
+import com.thogakade.dao.custom.impl.ItemDAOImpl;
+import com.thogakade.dao.custom.impl.OrderDAOImpl;
+
 public class DAOFactory {
     private static DAOFactory daoFactory;
 
