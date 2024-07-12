@@ -1,78 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="800.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.thogakade.controller.CustomerViewController">
-
-    <children>
-        <Text fill="ORANGE" layoutX="73.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer">
-            <font>
-                <Font name="Algerian" size="51.0" />
-            </font>
-        </Text>
-        <Circle fill="#f4f4f4" layoutX="248.0" layoutY="479.0" opacity="0.37" radius="297.0" stroke="ORANGE" strokeType="INSIDE" strokeWidth="5.0" />
-        <Pane layoutX="-120.0" layoutY="174.0" prefHeight="605.0" prefWidth="455.0" style="-fx-background-color: #f4f4f4;">
-            <children>
-
-                <TextField fx:id="customerId" layoutX="157.0" layoutY="107.0" opacity="0.39" promptText="Customer Id" style="-fx-prompt-text-fill: black; -fx-border-color: black; -fx-background-color: #f4f4f4;">
-                    <font>
-                        <Font size="20.0" />
-                    </font>
-                </TextField>
-                <TextField fx:id="customerNameId" layoutX="157.0" layoutY="197.0" opacity="0.39" promptText="Customer Name" style="-fx-prompt-text-fill: black; -fx-border-color: black; -fx-background-color: #f4f4f4;">
-                    <font>
-                        <Font size="20.0" />
-                    </font>
-                </TextField>
-                <TextField fx:id="customerAddressId" layoutX="157.0" layoutY="287.0" opacity="0.39" promptText="Customer Address" style="-fx-prompt-text-fill: black; -fx-border-color: black; -fx-background-color: #f4f4f4;">
-                    <font>
-                        <Font size="20.0" />
-                    </font>
-                </TextField>
-                <TextField fx:id="customerContactId" layoutX="157.0" layoutY="376.0" opacity="0.39" promptText="Customer Contact" style="-fx-prompt-text-fill: black; -fx-border-color: black; -fx-background-color: #f4f4f4;">
-                    <font>
-                        <Font size="20.0" />
-                    </font>
-                </TextField>
-            </children>
-        </Pane>
-        <JFXButton layoutX="340.0" layoutY="495.0" prefHeight="44.0" prefWidth="145.0" style="-fx-background-color: red mat; -fx-background-radius: 10;" text="Delete" textFill="WHITE">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </JFXButton>
-        <JFXButton fx:id="saveBtn" layoutX="340.0" layoutY="403.0" prefHeight="44.0" prefWidth="145.0" style="-fx-background-color: green; -fx-background-radius: 10;" text="Save" textFill="WHITE">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </JFXButton>
-        <TableView fx:id="tblCustomer" layoutX="589.0" layoutY="171.0" prefHeight="421.0" prefWidth="538.0" style="-fx-background-color: #f4f4f4;" stylesheets="">
-            <columns>
-                <TableColumn fx:id="tblCustomerId" prefWidth="121.0" text="Id" />
-                <TableColumn fx:id="tblCustomerName" prefWidth="110.0" text="Name" />
-                <TableColumn fx:id="tblCustomerAddress" prefWidth="147.0" text="Address" />
-                <TableColumn fx:id="tblCustomerContact" prefWidth="151.0" text="Contact" />
-            </columns>
-        </TableView>
-        <TextField fx:id="searchId" layoutX="773.0" layoutY="66.0" opacity="0.39" prefHeight="46.0" prefWidth="347.0" promptText="search" style="-fx-prompt-text-fill: black; -fx-border-color: black; -fx-background-color: #f4f4f4; -fx-background-radius: 25;">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </TextField>
-
-        <JFXButton layoutX="1070.0" layoutY="67.0" opacity="0.0" prefHeight="44.0" prefWidth="50.0" style="-fx-background-color: #f4f4f4; -fx-background-radius: 10;" text="." textFill="WHITE">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </JFXButton>
-    </children>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controller.CustomerViewController"
+            prefHeight="400.0" prefWidth="600.0">
 
 </AnchorPane>
