@@ -14,7 +14,7 @@ public class AppInitializer extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Parent load = FXMLLoader.load(getClass().getResource(""));
+        Parent load = FXMLLoader.load(getClass().getResource("/view/CustomerView.fxml"));
         stage.setScene(new Scene(load));
         stage.setTitle("Inventory Management System - Loading Page");
         stage.centerOnScreen();
