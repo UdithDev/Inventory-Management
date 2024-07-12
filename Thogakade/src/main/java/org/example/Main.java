@@ -17,7 +17,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        URL fxmlLocation = getClass().getResource("/view/CustomerView.fxml");
+        URL fxmlLocation = getClass().getResource("/view/CustomerForm.fxml");
         System.out.println("FXML Location: " + fxmlLocation);
         Parent load = FXMLLoader.load(fxmlLocation);
         stage.setScene(new Scene(load));

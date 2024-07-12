@@ -47,5 +47,6 @@
       </TableView>
       <Button fx:id="btnSave" layoutX="508.0" layoutY="109.0" mnemonicParsing="false" onAction="#btnCustomerSaveOnAction" prefHeight="25.0" prefWidth="72.0" text="SAVE" />
       <Button fx:id="btnDelete" layoutX="621.0" layoutY="109.0" mnemonicParsing="false" onAction="#btnCustomerDeleteOnAction" prefHeight="25.0" prefWidth="72.0" text="DELETE" />
+      <Button fx:id="btnUpdate" layoutX="731.0" layoutY="110.0" mnemonicParsing="false" onAction="#btnCustomerUpdateOnAction" prefHeight="25.0" prefWidth="72.0" text="UPDATE" />
    </children>
 </AnchorPane>
