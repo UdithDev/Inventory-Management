@@ -3,15 +3,19 @@ package org.example.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import org.example.bo.BOFactory;
 import org.example.bo.custom.CustomerBO;
 import org.example.bo.custom.impl.CustomerBOImpl;
 import org.example.dto.CustomerDTO;
 import org.example.dto.tm.CustomerTM;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,6 +38,7 @@ public class CustomerController implements Initializable {
     public TableColumn<CustomerTM, String> colCustomerContact;
     public Button btnSave;
     public Button btnDelete;
+    public AnchorPane pane;
 
     public void btnCustomerSaveOnAction(ActionEvent actionEvent) {
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -160,4 +165,11 @@ public class CustomerController implements Initializable {
     }
 
 
+    public void btnLogOutOnAction(ActionEvent actionEvent) throws IOException {
+        URL resource = getClass().getResource("/view/Dashboard.fxml");
+        assert resource != null;
+        Parent load = FXMLLoader.load(resource);
+        pane.getChildren().clear();
+        pane.getChildren().add(load);
+    }
 }

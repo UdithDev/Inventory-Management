@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="650.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.ItemFormViewController">
+<AnchorPane fx:id="pane" prefHeight="650.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.ItemFormViewController">
 
     <children>
         <Separator layoutY="75.0" prefWidth="900.0" style="-fx-border-color: black; -fx-background-color: black;" />
@@ -48,6 +48,8 @@
         </TableView>
       <Button fx:id="btnSave" layoutX="508.0" layoutY="103.0" mnemonicParsing="false" onAction="#btnItemSaveOnAction" prefHeight="25.0" prefWidth="62.0" text="SAVE" />
       <Button fx:id="btnDelete" layoutX="609.0" layoutY="103.0" mnemonicParsing="false" onAction="#btnItemDeleteOnAction" prefHeight="25.0" prefWidth="62.0" text="DELETE" />
+      <Button fx:id="btnUpdate" layoutX="723.0" layoutY="103.0" mnemonicParsing="false" onAction="#btnItemUpdateOnAction" prefHeight="25.0" prefWidth="62.0" text="UPDATE" />
+      <Button fx:id="btnLogOut" layoutX="723.0" layoutY="27.0" mnemonicParsing="false" onAction="#btnLogOutOnAction" prefHeight="25.0" prefWidth="82.0" text="LOGOUT" />
     </children>
 
 </AnchorPane>
