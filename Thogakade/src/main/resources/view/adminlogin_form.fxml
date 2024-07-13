@@ -18,22 +18,22 @@
         </ImageView>
         <Label layoutX="95.0" layoutY="40.0" prefHeight="50.0" prefWidth="350.0" style="-fx-background-color: lightblue; -fx-background-radius: 10;" text="  Welcome Admin">
             <font>
-                <Font name="Algerian" size="40.0" />
+                <Font name="Cambria Math" size="40.0" />
             </font>
         </Label>
         <TextField fx:id="txtUsername" layoutX="95.0" layoutY="150.0" prefHeight="34.0" prefWidth="238.0" promptText="Username">
             <font>
-                <Font name="Calibri" size="17.0" />
+                <Font name="Cambria Math" size="17.0" />
             </font>
         </TextField>
         <Button layoutX="358.0" layoutY="216.0" mnemonicParsing="false" onAction="#adminloginOnAction" prefHeight="31.0" prefWidth="86.0" style="-fx-background-color: lightblue;" text="login">
             <font>
-                <Font name="Algerian" size="17.0" />
+                <Font name="Cambria Math" size="17.0" />
             </font>
         </Button>
       <PasswordField fx:id="txtPassword" layoutX="95.0" layoutY="216.0" prefHeight="34.0" prefWidth="238.0" promptText="Password">
          <font>
-            <Font name="Calibri" size="17.0" />
+            <Font name="Cambria Math" size="17.0" />
          </font>
       </PasswordField>
     </children>

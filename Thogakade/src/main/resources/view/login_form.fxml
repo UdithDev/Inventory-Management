@@ -16,17 +16,17 @@
         </ImageView>
         <Button layoutX="101.0" layoutY="260.0" mnemonicParsing="false" onAction="#cashierOnAction" prefHeight="44.0" prefWidth="516.0" text="Cashier">
             <font>
-                <Font name="Algerian" size="23.0" />
+                <Font name="Cambria Math" size="23.0" />
             </font>
         </Button>
         <Button layoutX="102.0" layoutY="334.0" mnemonicParsing="false" onAction="#adminOnAction" prefHeight="44.0" prefWidth="516.0" text="Admin">
             <font>
-                <Font name="Algerian" size="23.0" />
+                <Font name="Cambria Math" size="23.0" />
             </font>
         </Button>
         <Label layoutX="101.0" layoutY="61.0" prefHeight="52.0" prefWidth="516.0" style="-fx-background-color: lightblue; -fx-background-radius: 10;" text="  Welcome to GINZA Restaurant" textFill="#151515">
             <font>
-                <Font name="Algerian" size="31.0" />
+                <Font name="Cambria Math" size="31.0" />
             </font>
         </Label>
     </children>

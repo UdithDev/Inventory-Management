@@ -17,42 +17,42 @@
         </ImageView>
         <Label layoutX="94.0" layoutY="36.0" prefHeight="39.0" prefWidth="391.0" style="-fx-background-color: lightblue; -fx-background-radius: 10;" text="  Create a new account">
             <font>
-                <Font name="Algerian" size="31.0" />
+                <Font name="Cambria Math" size="31.0" />
             </font>
         </Label>
         <TextField layoutX="75.0" layoutY="112.0" promptText="Full Name">
             <font>
-                <Font name="Calibri" size="15.0" />
+                <Font name="Cambria Math" size="15.0" />
             </font>
         </TextField>
         <TextField layoutX="75.0" layoutY="169.0" promptText="Address">
             <font>
-                <Font name="Calibri" size="15.0" />
+                <Font name="Cambria Math" size="15.0" />
             </font>
         </TextField>
         <Button layoutX="424.0" layoutY="280.0" mnemonicParsing="false" style="-fx-background-color: lightblue;" text="Create">
             <font>
-                <Font name="Algerian" size="15.0" />
+                <Font name="Cambria Math" size="15.0" />
             </font>
         </Button>
         <TextField layoutX="75.0" layoutY="228.0" promptText="Contact">
             <font>
-                <Font name="Calibri" size="15.0" />
+                <Font name="Cambria Math" size="15.0" />
             </font>
         </TextField>
         <TextField layoutX="325.0" layoutY="112.0" promptText="Email">
             <font>
-                <Font name="Calibri" size="15.0" />
+                <Font name="Cambria Math" size="15.0" />
             </font>
         </TextField>
         <TextField layoutX="325.0" layoutY="169.0" promptText="Username">
             <font>
-                <Font name="Calibri" size="15.0" />
+                <Font name="Cambria Math" size="15.0" />
             </font>
         </TextField>
         <TextField layoutX="325.0" layoutY="228.0" promptText="Password">
             <font>
-                <Font name="Calibri" size="15.0" />
+                <Font name="Cambria Math" size="15.0" />
             </font>
         </TextField>
     </children>

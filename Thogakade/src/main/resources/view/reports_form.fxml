@@ -18,13 +18,13 @@
         <Label layoutX="14.0" layoutY="70.0" prefHeight="34.0" prefWidth="134.0"
                style="-fx-background-color: lightblue; -fx-background-radius: 10;" text="  REPORTS">
             <font>
-                <Font name="Algerian" size="25.0"/>
+                <Font name="Cambria Math" size="25.0"/>
             </font>
         </Label>
         <Label fx:id="lbldateandtime" layoutX="8.0" layoutY="134.0" prefHeight="34.0" prefWidth="255.0"
                style="-fx-background-color: lightblue; -fx-background-radius: 10;">
             <font>
-                <Font name="Algerian" size="25.0"/>
+                <Font name="Cambria Math" size="25.0"/>
             </font>
         </Label>
         <Button layoutX="45.0" layoutY="560.0" mnemonicParsing="false" onAction="#backOnAction" prefHeight="34.0"
