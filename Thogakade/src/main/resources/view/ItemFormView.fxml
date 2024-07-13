@@ -46,8 +46,8 @@
                 <TableColumn fx:id="colQtyOnHand" prefWidth="179.0" text="Qty On Hand" />
             </columns>
         </TableView>
-      <Button layoutX="508.0" layoutY="103.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="62.0" text="SAVE" />
-      <Button layoutX="609.0" layoutY="103.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="62.0" text="DELETE" />
+      <Button fx:id="btnSave" layoutX="508.0" layoutY="103.0" mnemonicParsing="false" onAction="#btnItemSaveOnAction" prefHeight="25.0" prefWidth="62.0" text="SAVE" />
+      <Button fx:id="btnDelete" layoutX="609.0" layoutY="103.0" mnemonicParsing="false" onAction="#btnItemDeleteOnAction" prefHeight="25.0" prefWidth="62.0" text="DELETE" />
     </children>
 
 </AnchorPane>

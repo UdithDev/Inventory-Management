@@ -29,9 +29,9 @@ public class CustomerController implements Initializable {
     public TextField txtCustomerContact;
     public TableView<CustomerTM> tblCustomer;
     public TableColumn<CustomerTM, String> colCustomerId;
-    public TableColumn<CustomerTM,String> colCustomerName;
-    public TableColumn <CustomerTM,String>colCustomerAddress;
-    public TableColumn<CustomerTM,String> colCustomerContact;
+    public TableColumn<CustomerTM, String> colCustomerName;
+    public TableColumn<CustomerTM, String> colCustomerAddress;
+    public TableColumn<CustomerTM, String> colCustomerContact;
     public Button btnSave;
     public Button btnDelete;
 
@@ -77,6 +77,7 @@ public class CustomerController implements Initializable {
             }
         }
     }
+
     public void btnCustomerUpdateOnAction(ActionEvent actionEvent) {
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.setTitle("Update Customer");
@@ -106,17 +107,19 @@ public class CustomerController implements Initializable {
         setupTable();
         getAllCustomers();
     }
+
     private void setupTable() {
-        colCustomerId.setCellValueFactory(new PropertyValueFactory<CustomerTM,String>("id"));
-        colCustomerName.setCellValueFactory(new PropertyValueFactory<CustomerTM,String>("name"));
-        colCustomerAddress.setCellValueFactory(new PropertyValueFactory<CustomerTM,String>("address"));
-        colCustomerContact.setCellValueFactory(new PropertyValueFactory<CustomerTM,String>("contact"));
+        colCustomerId.setCellValueFactory(new PropertyValueFactory<CustomerTM, String>("id"));
+        colCustomerName.setCellValueFactory(new PropertyValueFactory<CustomerTM, String>("name"));
+        colCustomerAddress.setCellValueFactory(new PropertyValueFactory<CustomerTM, String>("address"));
+        colCustomerContact.setCellValueFactory(new PropertyValueFactory<CustomerTM, String>("contact"));
     }
-    void getAllCustomers(){
+
+    void getAllCustomers() {
         ObservableList<CustomerTM> observableList = FXCollections.observableArrayList();
         try {
             ArrayList<CustomerDTO> all = customerBO.getAllCustomers();
-            for (CustomerDTO customerDTO:all) {
+            for (CustomerDTO customerDTO : all) {
                 observableList.add(new CustomerTM(
                         customerDTO.getId(),
                         customerDTO.getName(),
