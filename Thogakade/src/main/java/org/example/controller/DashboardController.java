@@ -26,7 +26,7 @@ public class DashboardController {
     }
 
     public void btnItemManagerOnAction(ActionEvent actionEvent) throws IOException {
-        System.out.println("itemr");
+        System.out.println("item");
         URL resource = getClass().getResource("/view/ItemFormView.fxml");
         assert resource != null;
         Parent load = FXMLLoader.load(resource);
@@ -40,7 +40,7 @@ public class DashboardController {
     }
 
     public void btnPlaceOrderOnAction(ActionEvent actionEvent) throws IOException {
-        System.out.println("placeorder");
+        System.out.println("placeOrder");
         URL resource = getClass().getResource("/view/PlaceOrderForm.fxml");
         assert resource != null;
         Parent load = FXMLLoader.load(resource);
