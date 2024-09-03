@@ -35,17 +35,15 @@ public class DashboardController {
 
     }
 
-    public void btnOrderManagerOnAction(ActionEvent actionEvent) {
-        System.out.println("order");
-    }
-
-    public void btnPlaceOrderOnAction(ActionEvent actionEvent) throws IOException {
-        System.out.println("placeOrder");
-        URL resource = getClass().getResource("/view/PlaceOrderForm.fxml");
+    public void btnOrderManagerOnAction(ActionEvent actionEvent) throws IOException {
+        System.out.println("Order");
+        URL resource = getClass().getResource("/view/OrderForm.fxml");
         assert resource != null;
         Parent load = FXMLLoader.load(resource);
         pane.getChildren().clear();
         pane.getChildren().add(load);
+    }
 
+    public void btnPlaceOrderOnAction(ActionEvent actionEvent) throws IOException {
     }
 }
