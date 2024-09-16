@@ -1,6 +1,5 @@
 package org.example.dao.custom.impl;
 
-import org.example.dao.SuperDAO;
 import org.example.dao.custom.OrdersDAO;
 import org.example.entity.Orders;
 
@@ -30,6 +29,11 @@ public class OrderDAOImpl implements OrdersDAO {
 
     @Override
     public List<Orders> getAll() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public String generateNextId() throws SQLException {
         return null;
     }
 }

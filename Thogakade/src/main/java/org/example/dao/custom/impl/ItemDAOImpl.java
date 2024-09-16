@@ -1,7 +1,6 @@
 package org.example.dao.custom.impl;
 
 import org.example.dao.CrudUtil;
-import org.example.dao.SuperDAO;
 import org.example.dao.custom.ItemDAO;
 import org.example.entity.Item;
 

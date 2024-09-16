@@ -17,6 +17,7 @@ public class DashboardController {
     public AnchorPane pane;
 
     public void btnCustomerManagerOnAction(ActionEvent actionEvent) throws IOException {
+        System.out.println("Customer");
         URL resource = getClass().getResource("/view/CustomerForm.fxml");
         assert resource != null;
         Parent load = FXMLLoader.load(resource);
@@ -36,7 +37,7 @@ public class DashboardController {
     }
 
     public void btnOrderManagerOnAction(ActionEvent actionEvent) throws IOException {
-        System.out.println("Order");
+        System.out.println("order");
         URL resource = getClass().getResource("/view/OrderForm.fxml");
         assert resource != null;
         Parent load = FXMLLoader.load(resource);
@@ -46,4 +47,5 @@ public class DashboardController {
 
     public void btnPlaceOrderOnAction(ActionEvent actionEvent) throws IOException {
     }
+
 }

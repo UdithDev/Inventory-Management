@@ -1,7 +1,6 @@
 package org.example.bo.custom;
 
 import org.example.bo.SuperBO;
-import org.example.dto.CustomerDTO;
 import org.example.dto.ItemDTO;
 
 import java.util.ArrayList;
