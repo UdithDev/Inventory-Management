@@ -11,10 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@ToString
-public class OrdersDTO {
+public class OrderDTO {
     private String id;
-    private Date date;
-    private String customerId;
-    private List<OrderItemDTO> orderItemDTOS;
+    private Date orderDate;
+    private CustomerDTO customer;
+    private List<OrderItemDTO> orderItems;
 }

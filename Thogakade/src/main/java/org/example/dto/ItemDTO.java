@@ -7,10 +7,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@ToString
 public class ItemDTO {
     private String code;
     private String description;
-    private double unitPrice;
+    private double price;
     private int qtyOnHand;
 }

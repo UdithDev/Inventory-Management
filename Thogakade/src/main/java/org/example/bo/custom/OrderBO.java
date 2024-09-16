@@ -3,7 +3,7 @@ package org.example.bo.custom;
 import org.example.bo.SuperBO;
 import org.example.dto.CustomerDTO;
 import org.example.dto.ItemDTO;
-import org.example.dto.OrdersDTO;
+import org.example.dto.OrderDTO;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -19,5 +19,5 @@ public interface OrderBO extends SuperBO {
 
     ItemDTO searchByItemCode(String itemCode) throws SQLException;
 
-    boolean placeOrder(OrdersDTO orderDTO) throws SQLException;
+    boolean placeOrder(OrderDTO orderDTO) throws SQLException;
 }
