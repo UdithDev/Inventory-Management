@@ -1,10 +1,10 @@
 package org.example.dao.custom;
 
 import org.example.dao.CrudDAO;
-import org.example.entity.Orders;
+import org.example.entity.Order;
 
 import java.sql.SQLException;
 
-public interface OrdersDAO extends CrudDAO<Orders> {
+public interface OrdersDAO extends CrudDAO<Order> {
     String generateNextId() throws SQLException;
 }

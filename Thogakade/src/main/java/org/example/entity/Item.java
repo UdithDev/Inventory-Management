@@ -5,13 +5,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.*;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @ToString
+@Entity
+@Table(name = "items")
 public class Item {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String code;
+    @Column(name = "description", nullable = false)
     private String description;
-    private double unitPrice;
+
+    @Column(name = "price", nullable = false)
+    private double price;
+    @Column(name = "qtyOnHand", nullable = false)
     private int qtyOnHand;
 }
