@@ -1,7 +1,9 @@
 
 import org.example.dao.SuperDAO;
+import org.example.dao.custom.impl.CustomerDAOImpl;
 import org.example.dao.custom.impl.ItemDAOImpl;
 import org.example.dao.custom.impl.OrderDAOImpl;
+import org.example.dao.custom.impl.OrderItemsDAOImpl;
 
 public class DAOFactory {
 
@@ -28,7 +30,7 @@ public class DAOFactory {
             case ORDER:
                 return new OrderDAOImpl();  // Return Order DAO implementation
             case ORDERITEM:
-                return new OrderItemDAOImpl();  // Return OrderItem DAO implementation
+                return new OrderItemsDAOImpl();  // Return OrderItem DAO implementation
             default:
                 return null;  // Return null if no matching DAO type is found
         }
