@@ -1,12 +1,12 @@
 package org.example.dao.custom.impl;
 
 import org.example.entity.OrderItem;
-import org.example.dao.custom.OrderDetailsDAO;
+import org.example.dao.custom.OrderItemsDAO;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class OrderDetailsDAOImpl implements OrderDetailsDAO {
+public class OrderItemsDAOImpl implements OrderItemsDAO {
     @Override
     public boolean save(OrderItem entity) throws SQLException {
         try {
