@@ -1,16 +1,24 @@
 package org.example.dao;
 
+import com.sun.xml.bind.v2.model.core.ID;
+
 import java.sql.SQLException;
 import java.util.List;
 
 public interface CrudDAO <T> extends SuperDAO{
-    boolean save(T entity) throws SQLException;
+   //save a new entity to the database
+    boolean save(T entity);
 
-    T search(String id) throws SQLException;
+    // Find an entity by its ID
+    T findById(ID id);
 
-    boolean update(T entity) throws SQLException;
+    // Update an existing entity
+    boolean update(T entity);
 
-    boolean delete(String id) throws SQLException;
+    // Delete an entity by its ID
+    boolean delete(ID id);
 
-    List<T> getAll() throws SQLException;
+    // Get all entities
+    List<T> getAll();
+
 }

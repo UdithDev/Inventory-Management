@@ -4,15 +4,18 @@ import javafx.scene.control.Button;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.dto.CustomerDTO;
+import org.example.dto.OrderItemDTO;
+
+import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class OrdersTM {
-    private String code;
-    private String description;
-    private Integer qty;
-    private Double unitPrice;
-    private Double total;
-    private Button btn;
+    private String id;
+    private Date orderDate;
+    private CustomerDTO customer;
+    private List<OrderItemDTO> orderItems;
 }
