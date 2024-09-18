@@ -1,78 +1,78 @@
 package org.example.dao.custom.impl;
 
+import com.sun.xml.bind.v2.model.core.ID;
 import org.example.dao.custom.ItemDAO;
 import org.example.entity.Item;
+import org.example.util.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class ItemDAOImpl implements ItemDAO {
+
+
     @Override
-    public boolean save(Item entity) throws SQLException {
-        try {
-            return (Integer) CrudUtil.execute("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?, ?, ?, ?)",
-                    entity.getCode(), entity.getDescription(), entity.getUnitPrice(), entity.getQtyOnHand()) > 0;
+    public boolean save(Item item) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.save(item);
+            transaction.commit();
+            return true;
         } catch (Exception e) {
-            throw new SQLException("Failed to save item", e);
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+            return false;
         }
     }
 
     @Override
-    public Item search(String code) throws SQLException {
-        try {
-            ResultSet resultSet = (ResultSet) CrudUtil.execute("SELECT * FROM Item WHERE code = ?", code);
-            if (resultSet.next()) {
-                return new Item(
-                        resultSet.getString("code"),
-                        resultSet.getString("description"),
-                        resultSet.getDouble("unitPrice"),
-                        resultSet.getInt("qtyOnHand")
-                );
+    public Item findById(ID id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.get(Item.class, id);
+        }
+    }
+
+    @Override
+    public boolean update(Item item) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.update(item);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean delete(ID id) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            Item item = session.get(Item.class, id);
+            if (item != null) {
+                session.delete(item);
+                transaction.commit();
+                return true;
             }
-            return null;
+            return false;
         } catch (Exception e) {
-            throw new SQLException("Failed to search item", e);
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+            return false;
         }
     }
 
     @Override
-    public boolean update(Item entity) throws SQLException {
-        try {
-            return (Integer) CrudUtil.execute("UPDATE Item SET description = ?, unitPrice = ?, qtyOnHand = ? WHERE code = ?",
-                    entity.getDescription(), entity.getUnitPrice(), entity.getQtyOnHand(), entity.getCode()) > 0;
-        } catch (Exception e) {
-            throw new SQLException("Failed to update item", e);
+    public List<Item> getAll() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Item", Item.class).list();
         }
-    }
-
-    @Override
-    public boolean delete(String code) throws SQLException {
-        try {
-            return (Integer) CrudUtil.execute("DELETE FROM Item WHERE code = ?", code) > 0;
-        } catch (Exception e) {
-            throw new SQLException("Failed to delete item", e);
-        }
-    }
-
-    @Override
-    public List<Item> getAll() throws SQLException {
-        try {
-            ResultSet resultSet = (ResultSet) CrudUtil.execute("SELECT * FROM Item");
-            List<Item> items = new ArrayList<>();
-            while (resultSet.next()) {
-                items.add(new Item(
-                        resultSet.getString("code"),
-                        resultSet.getString("description"),
-                        resultSet.getDouble("unitPrice"),
-                        resultSet.getInt("qtyOnHand")
-                ));
-            }
-            return items;
-        } catch (Exception e) {
-            throw new SQLException("Failed to retrieve all items", e);
-        }
-
     }
 }
