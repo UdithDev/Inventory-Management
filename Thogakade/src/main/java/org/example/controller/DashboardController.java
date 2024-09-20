@@ -38,7 +38,7 @@ public class DashboardController {
 
     public void btnOrderManagerOnAction(ActionEvent actionEvent) throws IOException {
         System.out.println("order");
-        URL resource = getClass().getResource("/view/OrderForm.fxml");
+        URL resource = getClass().getResource("/view/PlaceOrderForm.fxml");
         assert resource != null;
         Parent load = FXMLLoader.load(resource);
         pane.getChildren().clear();

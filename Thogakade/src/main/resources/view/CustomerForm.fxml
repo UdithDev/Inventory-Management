@@ -28,12 +28,12 @@
             <Font size="17.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtCustomerAddress" layoutX="31.0" layoutY="277.0" prefHeight="42.0" prefWidth="246.0" promptText="Customer Address">
+      <TextField fx:id="txtCustomerAddress" layoutX="31.0" layoutY="277.0" prefHeight="42.0" prefWidth="246.0" promptText="Customer Email">
          <font>
             <Font size="17.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtCustomerContact" layoutX="508.0" layoutY="277.0" prefHeight="42.0" prefWidth="246.0" promptText="Customer Contact">
+      <TextField fx:id="txtCustomerContact" layoutX="508.0" layoutY="277.0" prefHeight="42.0" prefWidth="246.0" promptText="Customer Phone">
          <font>
             <Font size="17.0" />
          </font>
@@ -42,8 +42,8 @@
         <columns>
           <TableColumn fx:id="colCustomerId" prefWidth="161.0" text="Customer ID" />
           <TableColumn fx:id="colCustomerName" prefWidth="185.0" text="Customer Name" />
-            <TableColumn fx:id="colCustomerAddress" prefWidth="147.0" text="Customer Address" />
-            <TableColumn fx:id="colCustomerContact" prefWidth="179.0" text="Customer Contact" />
+            <TableColumn fx:id="colCustomerAddress" prefWidth="147.0" text="Customer Email" />
+            <TableColumn fx:id="colCustomerContact" prefWidth="179.0" text="Customer Phone" />
         </columns>
       </TableView>
       <Button fx:id="btnSave" layoutX="508.0" layoutY="109.0" mnemonicParsing="false" onAction="#btnCustomerSaveOnAction" prefHeight="25.0" prefWidth="72.0" text="SAVE">
