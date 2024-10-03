@@ -3,12 +3,17 @@ package org.example.bo.custom;
 import org.example.bo.SuperBO;
 import org.example.dto.CustomerDTO;
 
+import java.util.List;
 import java.util.ArrayList;
 
 public interface CustomerBO extends SuperBO {
-    void addCustomer(CustomerDTO customer) throws Exception;
-    void updateCustomer(CustomerDTO customer) throws Exception;
-   void deleteCustomer(String id) throws Exception;
-    CustomerDTO getCustomer(String id) throws Exception;
-    ArrayList<CustomerDTO> getAllCustomers() throws Exception;
+    boolean saveCustomer(CustomerDTO customerDTO);
+
+    boolean updateCustomer(CustomerDTO customerDTO);
+
+    boolean deleteCustomer(CustomerDTO customerDTO);
+
+    List<CustomerDTO> getAllCustomers();
+
+    CustomerDTO searchCustomer(String customerId);
 }

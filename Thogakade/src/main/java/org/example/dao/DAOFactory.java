@@ -1,3 +1,4 @@
+package org.example.dao;
 
 import org.example.dao.SuperDAO;
 import org.example.dao.custom.impl.CustomerDAOImpl;

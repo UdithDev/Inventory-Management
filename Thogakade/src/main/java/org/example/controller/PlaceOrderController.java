@@ -5,6 +5,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -32,6 +33,8 @@ public class PlaceOrderController {
     public TableColumn colAction;
     public TextField txtNetTotal;
     public TextField txtUnitPrice;
+    public TextField txtQty;
+    public AnchorPane pane;
 
     public void cmbCustomerIdOnAction(ActionEvent actionEvent) {
     }

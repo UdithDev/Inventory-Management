@@ -15,5 +15,5 @@ public class CustomerTM {
     private String name;
     private String email;
     private String phone;
-    private List<OrderDTO> orders;
+
 }

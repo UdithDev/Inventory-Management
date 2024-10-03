@@ -11,14 +11,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@ToString
+
 @Entity
 @Table(name = "customer")
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String id;
     @Column(name = "name", nullable = false)
     private String name;
     @Column(name = "email", nullable = false, unique = true)
@@ -29,4 +29,11 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Order> orders;
+
+    public Customer(String id, String name, String email, String phone) {
+        this.id=id;
+        this.name=name;
+        this.email=name;
+        this.phone=phone;
+    }
 }

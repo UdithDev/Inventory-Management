@@ -3,7 +3,7 @@ package org.example.dao.custom.impl;
 import com.sun.xml.bind.v2.model.core.ID;
 import org.example.entity.OrderItem;
 import org.example.dao.custom.OrderItemsDAO;
-import org.example.util.HibernateUtil;
+import org.example.util.SessionFactoryConfig;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -15,7 +15,7 @@ public class OrderItemsDAOImpl implements OrderItemsDAO {
     @Override
     public boolean save(OrderItem orderItem) {
         Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = SessionFactoryConfig.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.save(orderItem);
             transaction.commit();
@@ -29,7 +29,7 @@ public class OrderItemsDAOImpl implements OrderItemsDAO {
 
     @Override
     public OrderItem findById(ID id) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = SessionFactoryConfig.getSessionFactory().openSession()) {
             return session.get(OrderItem.class, id);
         }
     }
@@ -37,7 +37,7 @@ public class OrderItemsDAOImpl implements OrderItemsDAO {
     @Override
     public boolean update(OrderItem orderItem) {
         Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = SessionFactoryConfig.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.update(orderItem);
             transaction.commit();
@@ -52,7 +52,7 @@ public class OrderItemsDAOImpl implements OrderItemsDAO {
     @Override
     public boolean delete(ID id) {
         Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = SessionFactoryConfig.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             OrderItem orderItem = session.get(OrderItem.class, id);
             if (orderItem != null) {
@@ -70,7 +70,7 @@ public class OrderItemsDAOImpl implements OrderItemsDAO {
 
     @Override
     public List<OrderItem> getAll() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = SessionFactoryConfig.getSessionFactory().openSession()) {
             return session.createQuery("FROM OrderItem", OrderItem.class).list();
         }
     }
