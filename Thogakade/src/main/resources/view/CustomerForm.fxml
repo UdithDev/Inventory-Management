@@ -51,9 +51,10 @@
             <Cursor fx:constant="HAND" />
          </cursor></Button>
       <Button fx:id="btnDelete" layoutX="621.0" layoutY="109.0" mnemonicParsing="false" onAction="#btnCustomerDeleteOnAction" prefHeight="25.0" prefWidth="72.0" text="DELETE">
-         <cursor>r fx:constant="HAND" />
-         </cursor><
-            <Curso/Button>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+            </Button>
       <Button fx:id="btnUpdate" layoutX="731.0" layoutY="110.0" mnemonicParsing="false" onAction="#btnCustomerUpdateOnAction" prefHeight="25.0" prefWidth="72.0" text="UPDATE">
          <cursor>
             <Cursor fx:constant="HAND" />
