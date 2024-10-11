@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import org.example.bo.BOFactory;
 import org.example.bo.custom.CustomerBO;
@@ -22,13 +23,13 @@ public class CustomerController implements Initializable {
 
     public TextField txtCustomerId;
     public TextField txtCustomerName;
-    public TextField txtCustomerAddress;
-    public TextField txtCustomerContact;
+    public TextField txtCustomerEmail;
+    public TextField txtCustomerPhone;
     public TableView tblCustomer;
     public TableColumn colCustomerId;
     public TableColumn colCustomerName;
-    public TableColumn colCustomerAddress;
-    public TableColumn colCustomerContact;
+    public TableColumn colCustomerEmail;
+    public TableColumn colCustomerPhone;
     public Button btnDelete;
     public Button btnSave;
     public Button btnUpdate;
@@ -40,18 +41,35 @@ public class CustomerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        colCustomerId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colCustomerName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colCustomerEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colCustomerPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
+
+        tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                setData((CustomerDTO) newValue);
+            }
+        });
+        loadAllCustomers();
     }
 
-    public void btnCustomerSaveOnAction(ActionEvent actionEvent) {
 
+    private void setData(CustomerDTO newValue) {
+        txtCustomerId.setText(newValue.getId());
+        txtCustomerName.setText(newValue.getName());
+        txtCustomerEmail.setText(newValue.getEmail());
+        txtCustomerPhone.setText(newValue.getPhone());
+    }
+
+
+    public void btnCustomerSaveOnAction(ActionEvent actionEvent) {
         try {
             String id = txtCustomerId.getText();
             String name = txtCustomerName.getText();
-            String email = txtCustomerAddress.getText();
-            String phone = txtCustomerContact.getText();
-
-
+            String email = txtCustomerEmail.getText();
+            String phone = txtCustomerPhone.getText();
             CustomerDTO customerDTO = new CustomerDTO(id, name, email, phone);
             boolean isSaved = customerBO.saveCustomer(customerDTO);
 
@@ -62,19 +80,17 @@ public class CustomerController implements Initializable {
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to save customer!").show();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Error occurred while saving customer: " + e.getMessage()).show();
         }
     }
 
+
     public void btnCustomerDeleteOnAction(ActionEvent actionEvent) {
         try {
             String id = txtCustomerId.getText();
-
             boolean isDeleted = customerBO.deleteCustomer(new CustomerDTO(id, "", "", ""));
-
             if (isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer deleted successfully!").show();
                 loadAllCustomers();
@@ -88,17 +104,16 @@ public class CustomerController implements Initializable {
         }
     }
 
+
     public void btnCustomerUpdateOnAction(ActionEvent actionEvent) {
         try {
             String id = txtCustomerId.getText();
             String name = txtCustomerName.getText();
-            String email = txtCustomerAddress.getText();
-            String phone = txtCustomerContact.getText();
+            String email = txtCustomerEmail.getText();
+            String phone = txtCustomerPhone.getText();
 
             CustomerDTO customerDTO = new CustomerDTO(id, name, email, phone);
-
             boolean isUpdated = customerBO.updateCustomer(customerDTO);
-
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer updated successfully!").show();
                 loadAllCustomers();
@@ -111,6 +126,7 @@ public class CustomerController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Error occurred while updating customer: " + e.getMessage()).show();
         }
     }
+
 
     public void btnLogOutOnAction(ActionEvent actionEvent) throws IOException {
         System.out.println("logout");
@@ -135,7 +151,7 @@ public class CustomerController implements Initializable {
     private void clearFields() {
         txtCustomerId.clear();
         txtCustomerName.clear();
-        txtCustomerAddress.clear();
-        txtCustomerContact.clear();
+        txtCustomerEmail.clear();
+        txtCustomerPhone.clear();
     }
 }
