@@ -9,50 +9,54 @@ import org.hibernate.Transaction;
 
 
 import java.util.List;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class OrderItemsDAOImpl implements OrderItemsDAO {
 
     @Override
     public boolean save(OrderItem orderItem) {
-        Transaction transaction = null;
-        try (Session session = SessionFactoryConfig.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.save(orderItem);
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            e.printStackTrace();
-            return false;
+        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
+            Transaction transaction = session.beginTransaction();
+            try {
+                session.save(orderItem);
+                transaction.commit();
+                return true;
+            } catch (Exception e) {
+                if (transaction != null) transaction.rollback();
+                return false;
+            }
         }
     }
 
     @Override
     public OrderItem findById(ID id) {
-        try (Session session = SessionFactoryConfig.getSessionFactory().openSession()) {
+        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
             return session.get(OrderItem.class, id);
         }
     }
 
     @Override
     public boolean update(OrderItem orderItem) {
-        Transaction transaction = null;
-        try (Session session = SessionFactoryConfig.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.update(orderItem);
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            e.printStackTrace();
-            return false;
+        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
+            Transaction transaction = session.beginTransaction();
+            try {
+                session.save(orderItem);
+                transaction.commit();
+                return true;
+            } catch (Exception e) {
+                if (transaction != null) transaction.rollback();
+                return false;
+            }
         }
     }
 
+
     @Override
-    public boolean delete(ID id) {
+    public boolean delete(String id) {
         Transaction transaction = null;
-        try (Session session = SessionFactoryConfig.getSessionFactory().openSession()) {
+        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
             transaction = session.beginTransaction();
             OrderItem orderItem = session.get(OrderItem.class, id);
             if (orderItem != null) {
@@ -70,7 +74,7 @@ public class OrderItemsDAOImpl implements OrderItemsDAO {
 
     @Override
     public List<OrderItem> getAll() {
-        try (Session session = SessionFactoryConfig.getSessionFactory().openSession()) {
+        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
             return session.createQuery("FROM OrderItem", OrderItem.class).list();
         }
     }

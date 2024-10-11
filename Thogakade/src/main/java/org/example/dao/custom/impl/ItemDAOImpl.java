@@ -16,19 +16,17 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public boolean save(Item item) {
-        Session session = SessionFactoryConfig.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
+        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
+            Transaction transaction = session.beginTransaction();
 
-        try {
-            session.save(item);
-            transaction.commit();
-            session.close();
-            return true;
-        } catch (Exception ex) {
-            transaction.rollback();
-            session.close();
-            return false;
-
+            try {
+                session.save(item);
+                transaction.commit();
+                return true;
+            } catch (Exception e) {
+                transaction.rollback();
+                return false;
+            }
         }
     }
 
@@ -41,38 +39,34 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public boolean update(Item item) {
-       Session session=SessionFactoryConfig.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-
-
-        try{
-            session.update(item);
-            transaction.commit();
-            session.close();
-            return true;
-        } catch (Exception ex) {
-            transaction.rollback();
-            session.close();
-            return false;
+        try (Session session = SessionFactoryConfig.getInstance().getSession();) {
+            Transaction transaction = session.beginTransaction();
+            try {
+                session.update(item);
+                transaction.commit();
+                return true;
+            } catch (Exception ex) {
+                transaction.rollback();
+                return false;
+            }
         }
     }
 
     @Override
     public boolean delete(String id) {
-        Session session = SessionFactoryConfig.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
+       try( Session session = SessionFactoryConfig.getInstance().getSession();) {
+           Transaction transaction = session.beginTransaction();
 
-        try {
-            Item item = session.load(Item.class, id);
-            session.delete(item);
-            transaction.commit();
-            session.close();
-            return true;
-        } catch (Exception ex) {
-            transaction.rollback();
-            session.close();
-            return false;
-        }
+           try {
+               Item item = session.load(Item.class, id);
+               session.delete(item);
+               transaction.commit();
+               return true;
+           } catch (Exception ex) {
+               transaction.rollback();
+               return false;
+           }
+       }
     }
 
     @Override
