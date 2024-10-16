@@ -1,12 +1,12 @@
 package org.example.controller;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
@@ -35,6 +35,7 @@ public class PlaceOrderController {
     public TextField txtUnitPrice;
     public TextField txtQty;
     public AnchorPane pane;
+    public Button btnBack;
 
     public void cmbCustomerIdOnAction(ActionEvent actionEvent) {
     }
@@ -45,7 +46,13 @@ public class PlaceOrderController {
     public void addToCartOnAction(ActionEvent actionEvent) {
     }
 
-    public void backOnAction(ActionEvent actionEvent) {
+    public void backOnAction(ActionEvent actionEvent) throws IOException {
+        System.out.println("Back to dashboard");
+        URL resource = getClass().getResource("/view/Dashboard.fxml");
+        assert resource != null;
+        Parent load = FXMLLoader.load(resource);
+        pane.getChildren().clear();
+        pane.getChildren().add(load);
     }
 
     public void placeOrderOnAction(ActionEvent actionEvent) {

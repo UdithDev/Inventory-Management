@@ -6,9 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,15 +19,14 @@ import java.util.List;
 @Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
     @Column(name = "order_date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date orderDate;
+
+    private LocalDateTime orderDate;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ArrayList<OrderItem> orderItems;
+    private List<OrderItem> orderItems=new ArrayList<>();
 }

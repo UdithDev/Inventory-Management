@@ -1,7 +1,6 @@
 package org.example.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,7 +14,7 @@ import org.example.dto.CustomerDTO;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
+
 import java.util.ResourceBundle;
 
 public class CustomerController implements Initializable {
@@ -46,15 +45,12 @@ public class CustomerController implements Initializable {
         colCustomerEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colCustomerPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
-
         tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
+            if(newValue!=null){
                 setData((CustomerDTO) newValue);
             }
         });
-        loadAllCustomers();
     }
-
 
     private void setData(CustomerDTO newValue) {
         txtCustomerId.setText(newValue.getId());
@@ -75,7 +71,7 @@ public class CustomerController implements Initializable {
 
             if (isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer saved successfully!").show();
-                loadAllCustomers();
+//                loadAllCustomers();
                 clearFields();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to save customer!").show();
@@ -93,7 +89,7 @@ public class CustomerController implements Initializable {
             boolean isDeleted = customerBO.deleteCustomer(new CustomerDTO(id, "", "", ""));
             if (isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer deleted successfully!").show();
-                loadAllCustomers();
+//                loadAllCustomers();
                 clearFields();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to delete customer!").show();
@@ -116,7 +112,7 @@ public class CustomerController implements Initializable {
             boolean isUpdated = customerBO.updateCustomer(customerDTO);
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer updated successfully!").show();
-                loadAllCustomers();
+//                loadAllCustomers();
                 clearFields();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to update customer!").show();
@@ -138,14 +134,6 @@ public class CustomerController implements Initializable {
     }
 
     private void loadAllCustomers() {
-        try {
-            List<CustomerDTO> allCustomers = customerBO.getAllCustomers();
-            ObservableList<CustomerDTO> customerList = FXCollections.observableArrayList(allCustomers);
-            tblCustomer.setItems(customerList);
-        } catch (Exception e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Error occurred while loading customers: " + e.getMessage()).show();
-        }
     }
 
     private void clearFields() {

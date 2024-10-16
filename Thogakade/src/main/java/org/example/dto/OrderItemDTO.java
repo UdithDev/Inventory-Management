@@ -9,7 +9,7 @@ import lombok.ToString;
 @Data
 @ToString
 public class OrderItemDTO {
-    private String id;
+    private Long id;
     private ItemDTO item;
     private int quantity;
     private double totalPrice;
