@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import net.bytebuddy.implementation.bind.annotation.Super;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ import java.util.List;
 @ToString
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order implements SuperEntity {
     @Id
     private String id;
     @ManyToOne

@@ -5,6 +5,7 @@ import org.example.dao.custom.impl.CustomerDAOImpl;
 import org.example.dao.custom.impl.ItemDAOImpl;
 import org.example.dao.custom.impl.OrderDAOImpl;
 import org.example.dao.custom.impl.OrderItemsDAOImpl;
+import org.example.dao.util.exception.DaoNotFoundException;
 
 public class DAOFactory {
 
@@ -22,18 +23,18 @@ public class DAOFactory {
     }
 
     // Factory method to return the appropriate DAO implementation
-    public SuperDAO getDAO(DAOTypes daoTypes) {
+    public <T extends SuperDAO> T getDAO(DAOTypes daoTypes) {
         switch (daoTypes) {
             case CUSTOMER:
-                return new CustomerDAOImpl();  // Return Customer DAO implementation
+                return(T) new CustomerDAOImpl();  // Return Customer DAO implementation
             case ITEM:
-                return new ItemDAOImpl();  // Return Item DAO implementation
+                return(T) new ItemDAOImpl();  // Return Item DAO implementation
             case ORDER:
-                return new OrderDAOImpl();  // Return Order DAO implementation
+                return (T)new OrderDAOImpl();  // Return Order DAO implementation
             case ORDERITEM:
-                return new OrderItemsDAOImpl();  // Return OrderItem DAO implementation
+                return(T) new OrderItemsDAOImpl();  // Return OrderItem DAO implementation
             default:
-                return null;  // Return null if no matching DAO type is found
+                throw new DaoNotFoundException("DAO not found");
         }
     }
 }

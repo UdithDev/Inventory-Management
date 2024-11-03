@@ -7,72 +7,49 @@ import org.example.entity.Item;
 import org.example.util.SessionFactoryConfig;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 
 import java.util.List;
 
 public class ItemDAOImpl implements ItemDAO {
 
-
     @Override
-    public boolean save(Item item) {
-        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
-            Transaction transaction = session.beginTransaction();
-
-            try {
-                session.save(item);
-                transaction.commit();
-                return true;
-            } catch (Exception e) {
-                transaction.rollback();
-                return false;
-            }
-        }
+    public boolean save(Item item, Session session) {
+        session.save(item);
+        return true;
     }
 
     @Override
-    public Item findById(ID id) {
-        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
-            return session.get(Item.class, id);
-        }
+    public boolean update(Item item, Session session) {
+        session.update(item);
+        return true;
     }
 
     @Override
-    public boolean update(Item item) {
-        try (Session session = SessionFactoryConfig.getInstance().getSession();) {
-            Transaction transaction = session.beginTransaction();
-            try {
-                session.update(item);
-                transaction.commit();
-                return true;
-            } catch (Exception ex) {
-                transaction.rollback();
-                return false;
-            }
+    public Boolean delete(String id, Session session) {
+        Item item = session.get(Item.class, id);
+        if (item == null) {
+            throw new RuntimeException("Item with ID " + id + " not found, cannot delete.");
         }
+        session.delete(item);
+        System.out.println("item successfully deleted in DAO.");
+        return true;
     }
 
     @Override
-    public boolean delete(String id) {
-       try( Session session = SessionFactoryConfig.getInstance().getSession();) {
-           Transaction transaction = session.beginTransaction();
+    public List<Item> getAll(Session session) {
+        String sql = "FROM Item ";
+        Query query = session.createQuery(sql);
+        List<Item> list = query.list();
+        return list;
 
-           try {
-               Item item = session.load(Item.class, id);
-               session.delete(item);
-               transaction.commit();
-               return true;
-           } catch (Exception ex) {
-               transaction.rollback();
-               return false;
-           }
-       }
     }
 
     @Override
-    public List<Item> getAll() {
-        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
-            return session.createQuery("FROM Item ", Item.class).list();
-        }
+    public List<Item> searchItemByText(String text, Session session) {
+        Query query = session.createQuery("FROM Item  WHERE description LIKE '%" + text + "%'");
+        List<Item> list = query.list();
+        return list;
     }
 }

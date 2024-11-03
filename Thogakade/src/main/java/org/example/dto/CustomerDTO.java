@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerDTO {
+public class CustomerDTO implements SuperDTO {
     private String id;
     private String name;
     private String email;

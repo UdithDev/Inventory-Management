@@ -18,62 +18,22 @@ public class OrderDAOImpl implements OrdersDAO {
 
 
     @Override
-    public boolean save(Order order) {
-        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
-            Transaction transaction = session.beginTransaction();
-            try {
-                session.save(order);
-                transaction.commit();
-                return true;
-            } catch (Exception e) {
-                transaction.rollback();
-                return false;
-            }
-        }
+    public boolean save(Order entity, Session Session) {
+        return false;
     }
 
     @Override
-    public Order findById(ID id) {
-        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
-            return session.get(Order.class, id);
-        }
+    public boolean update(Order entity, Session session) {
+        return false;
     }
 
     @Override
-    public boolean update(Order order) {
-        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
-            Transaction transaction = session.beginTransaction();
-            try {
-                session.save(order);
-                transaction.commit();
-                return true;
-            } catch (Exception e) {
-                transaction.rollback();
-                return false;
-            }
-        }
+    public Boolean delete(String id, Session session) {
+        return false;
     }
 
     @Override
-    public boolean delete(String id) {
-        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
-            Transaction transaction = session.beginTransaction();
-            try {
-                Order order = session.load(Order.class, id);
-                session.delete(order);
-                transaction.commit();
-                return true;
-            } catch (Exception e) {
-                transaction.rollback();
-                return false;
-            }
-        }
-    }
-
-    @Override
-    public List<Order> getAll() {
-        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
-            return session.createQuery("FROM Order ", Order.class).list();
-        }
+    public List<Order> getAll(Session session) {
+        return null;
     }
 }

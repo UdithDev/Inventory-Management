@@ -1,4 +1,5 @@
 package org.example.dto;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +9,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Data
 @ToString
-public class OrderItemDTO {
+public class OrderItemDTO implements SuperDTO {
     private Long id;
     private ItemDTO item;
     private int quantity;

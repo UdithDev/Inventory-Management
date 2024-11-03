@@ -1,4 +1,5 @@
 package org.example.dao;
+import java.io.Serializable;
 
-public interface SuperDAO {
+public interface SuperDAO extends Serializable {
 }

@@ -13,9 +13,7 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Table(name = "items")
-public class Item {
-
-
+public class Item implements SuperEntity{
     @Id
     private String code;
     @Column(name = "description", nullable = false)

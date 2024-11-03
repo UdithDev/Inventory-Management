@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class OrderDTO {
+public class OrderDTO implements SuperDTO {
     private String id;
     private Date orderDate;
     private CustomerDTO customer;

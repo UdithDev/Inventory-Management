@@ -1,11 +1,10 @@
 package org.example.bo;
 
-import org.example.bo.SuperBO;
 import org.example.bo.custom.impl.CustomerBOImpl;
 import org.example.bo.custom.impl.ItemBOImpl;
 import org.example.bo.custom.impl.OrderBOImpl;
 import org.example.bo.custom.impl.OrderItemsBOImpl;
-import org.example.dao.custom.impl.OrderItemsDAOImpl;
+import org.example.bo.util.exception.ServiceNotFoundException;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -22,19 +21,19 @@ public class BOFactory {
         CUSTOMER, ITEM, ORDER, ORDERITEMS
     }
 
-    public SuperBO getBO(BOTypes boTypes) {
+    public <T extends SuperBO> T getBO(BOTypes boTypes)  throws ServiceNotFoundException {
         switch (boTypes) {
             case CUSTOMER:
-                return new CustomerBOImpl();
+                return(T) new CustomerBOImpl();
             case ITEM:
-                return new ItemBOImpl();
+                return (T) new ItemBOImpl();
             case ORDER:
-                return new OrderBOImpl();
+                return (T)new OrderBOImpl();
 
             case ORDERITEMS:
-                return new OrderItemsBOImpl();
+                return (T) new OrderItemsBOImpl();
             default:
-                return null;
+                throw new ServiceNotFoundException("Service not found");
         }
     }
 }

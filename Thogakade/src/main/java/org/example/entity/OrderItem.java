@@ -14,7 +14,7 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Table(name = "order_items")
-public class OrderItem {
+public class OrderItem implements SuperEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;

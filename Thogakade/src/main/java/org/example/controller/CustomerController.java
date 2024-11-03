@@ -1,21 +1,31 @@
 package org.example.controller;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import org.example.bo.BOFactory;
+import org.example.bo.SuperBO;
 import org.example.bo.custom.CustomerBO;
 import org.example.dto.CustomerDTO;
+import org.example.dto.tm.CustomerTM;
 
 import java.io.IOException;
 import java.net.URL;
 
+
+import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class CustomerController implements Initializable {
 
@@ -24,11 +34,12 @@ public class CustomerController implements Initializable {
     public TextField txtCustomerName;
     public TextField txtCustomerEmail;
     public TextField txtCustomerPhone;
-    public TableView tblCustomer;
-    public TableColumn colCustomerId;
-    public TableColumn colCustomerName;
-    public TableColumn colCustomerEmail;
-    public TableColumn colCustomerPhone;
+    public TextField txtSearch;
+    public TableView<CustomerTM> tblCustomer;
+    public TableColumn<CustomerTM, String> colCustomerId;
+    public TableColumn<CustomerTM, String> colCustomerName;
+    public TableColumn<CustomerTM, String> colCustomerEmail;
+    public TableColumn<CustomerTM, String> colCustomerPhone;
     public Button btnDelete;
     public Button btnSave;
     public Button btnUpdate;
@@ -36,93 +47,100 @@ public class CustomerController implements Initializable {
     public AnchorPane pane;
 
 
-    CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
+    private CustomerBO customerBO;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        colCustomerId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colCustomerName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colCustomerEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        colCustomerPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
-        tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue!=null){
-                setData((CustomerDTO) newValue);
-            }
-        });
+        try {
+            customerBO = BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
+            colCustomerId.setCellValueFactory(new PropertyValueFactory<>("id"));
+            colCustomerName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            colCustomerEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+            colCustomerPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+
+            loadAllCustomers();
+
+            txtSearch.textProperty().addListener((observableValue, previous, current) -> {
+                if (!Objects.equals(previous, current)) {
+                    tblCustomer.getItems().clear();
+                    List<CustomerTM> collect = customerBO.searchCustomerByText(current).stream().map(this::toCustomerTm).collect(Collectors.toList());
+                    tblCustomer.setItems(FXCollections.observableArrayList(collect));
+                }
+            });
+        } catch (RuntimeException exception) {
+            new Alert(Alert.AlertType.ERROR, exception.getMessage()).show();
+        }
     }
 
-    private void setData(CustomerDTO newValue) {
-        txtCustomerId.setText(newValue.getId());
-        txtCustomerName.setText(newValue.getName());
-        txtCustomerEmail.setText(newValue.getEmail());
-        txtCustomerPhone.setText(newValue.getPhone());
+    private CustomerTM toCustomerTm(CustomerDTO customerDTO) {
+        CustomerTM customerTM = new CustomerTM();
+        customerTM.setId(customerTM.getId());
+        customerTM.setName(customerTM.getName());
+        customerTM.setEmail(customerTM.getEmail());
+        customerTM.setPhone(customerTM.getPhone());
+
+        return customerTM;
     }
 
 
     public void btnCustomerSaveOnAction(ActionEvent actionEvent) {
         try {
-            String id = txtCustomerId.getText();
-            String name = txtCustomerName.getText();
-            String email = txtCustomerEmail.getText();
-            String phone = txtCustomerPhone.getText();
-            CustomerDTO customerDTO = new CustomerDTO(id, name, email, phone);
-            boolean isSaved = customerBO.saveCustomer(customerDTO);
+            CustomerDTO customerDTO = new CustomerDTO();
+            customerDTO.setId(txtCustomerId.getText());
+            customerDTO.setName(txtCustomerName.getText());
+            customerDTO.setEmail(txtCustomerEmail.getText());
+            customerDTO.setPhone(txtCustomerPhone.getText());
 
-            if (isSaved) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Customer saved successfully!").show();
-//                loadAllCustomers();
-                clearFields();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Failed to save customer!").show();
-            }
+            customerBO.save(customerDTO);
+            new Alert(Alert.AlertType.INFORMATION, "Customer Added").show();
+            loadAllCustomers();
+            clearFields();
         } catch (Exception e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Error occurred while saving customer: " + e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
 
     public void btnCustomerDeleteOnAction(ActionEvent actionEvent) {
+        CustomerTM selectedItem = tblCustomer.getSelectionModel().getSelectedItem();
         try {
-            String id = txtCustomerId.getText();
-            boolean isDeleted = customerBO.deleteCustomer(new CustomerDTO(id, "", "", ""));
-            if (isDeleted) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Customer deleted successfully!").show();
-//                loadAllCustomers();
+            if (selectedItem != null) {
+                customerBO.delete(selectedItem.getId());
+                new Alert(Alert.AlertType.INFORMATION, "Customer Deleted").show();
+                loadAllCustomers();
                 clearFields();
             } else {
-                new Alert(Alert.AlertType.ERROR, "Failed to delete customer!").show();
+                new Alert(Alert.AlertType.ERROR, "Select Customer first!").show();
             }
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Error occurred while deleting customer: " + e.getMessage()).show();
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            clearFields();
         }
+        btnUpdate.setDisable(true);
+        btnSave.setDisable(false);
+        btnDelete.setDisable(true);
     }
 
 
     public void btnCustomerUpdateOnAction(ActionEvent actionEvent) {
         try {
-            String id = txtCustomerId.getText();
-            String name = txtCustomerName.getText();
-            String email = txtCustomerEmail.getText();
-            String phone = txtCustomerPhone.getText();
+            CustomerDTO customerDTO = new CustomerDTO();
+            customerDTO.setId(txtCustomerId.getText());
+            customerDTO.setName(txtCustomerName.getText());
+            customerDTO.setEmail(txtCustomerEmail.getText());
+            customerDTO.setPhone(txtCustomerPhone.getText());
 
-            CustomerDTO customerDTO = new CustomerDTO(id, name, email, phone);
-            boolean isUpdated = customerBO.updateCustomer(customerDTO);
-            if (isUpdated) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Customer updated successfully!").show();
-//                loadAllCustomers();
-                clearFields();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Failed to update customer!").show();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Error occurred while updating customer: " + e.getMessage()).show();
+            customerBO.update(customerDTO);
+            new Alert(Alert.AlertType.INFORMATION, "Customer Updated").show();
+            loadAllCustomers();
+            clearFields();
+        } catch (RuntimeException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            clearFields();
         }
     }
-
 
     public void btnLogOutOnAction(ActionEvent actionEvent) throws IOException {
         System.out.println("logout");
@@ -134,6 +152,15 @@ public class CustomerController implements Initializable {
     }
 
     private void loadAllCustomers() {
+        try {
+            List<CustomerDTO> all = customerBO.getAll();
+            ObservableList<CustomerTM> customerTMObservableList = FXCollections.observableArrayList();
+            all.forEach(customerDTO -> customerTMObservableList.add(new CustomerTM(customerDTO.getId(), customerDTO.getName(), customerDTO.getEmail(), customerDTO.getPhone())));
+            tblCustomer.setItems(customerTMObservableList);
+        } catch (RuntimeException exception) {
+            new Alert(Alert.AlertType.ERROR, exception.getMessage()).show();
+            tblCustomer.getItems().clear();
+        }
     }
 
     private void clearFields() {
@@ -141,5 +168,31 @@ public class CustomerController implements Initializable {
         txtCustomerName.clear();
         txtCustomerEmail.clear();
         txtCustomerPhone.clear();
+    }
+
+    public void txtSearchOnAction(ActionEvent actionEvent) {
+
+    }
+
+    public void txtSearchOnKeyReleased(KeyEvent keyEvent) {
+    }
+
+    public void tblCustomerOnMouseClicked(MouseEvent mouseEvent) {
+        CustomerTM selectedItem = tblCustomer.getSelectionModel().getSelectedItem();
+        try {
+            if (selectedItem != null) {
+                btnUpdate.setDisable(false);
+                btnDelete.setDisable(false);
+                btnSave.setDisable(true);
+                txtCustomerId.setText(selectedItem.getId());
+                txtCustomerName.setText(selectedItem.getName());
+                txtCustomerEmail.setText(selectedItem.getEmail());
+                txtCustomerPhone.setText(selectedItem.getPhone());
+            } else {
+                btnUpdate.setDisable(true);
+            }
+        } catch (RuntimeException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
 }

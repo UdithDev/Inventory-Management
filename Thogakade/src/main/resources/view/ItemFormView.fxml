@@ -38,7 +38,7 @@
                 <Font size="17.0" />
             </font>
         </TextField>
-        <TableView fx:id="tblItem" layoutX="45.0" layoutY="361.0" prefHeight="200.0" prefWidth="686.0">
+        <TableView fx:id="tblItem" layoutX="45.0" layoutY="361.0" onMouseClicked="#tblItemsOnMouseClicked" prefHeight="200.0" prefWidth="686.0">
             <columns>
                 <TableColumn fx:id="colItemCode" prefWidth="161.0" text="Item Code " />
                 <TableColumn fx:id="colDescription" prefWidth="185.0" text="Description" />
@@ -50,6 +50,7 @@
       <Button fx:id="btnDelete" layoutX="609.0" layoutY="103.0" mnemonicParsing="false" onAction="#btnItemDeleteOnAction" prefHeight="25.0" prefWidth="62.0" text="DELETE" />
       <Button fx:id="btnUpdate" layoutX="723.0" layoutY="103.0" mnemonicParsing="false" onAction="#btnItemUpdateOnAction" prefHeight="25.0" prefWidth="62.0" text="UPDATE" />
       <Button fx:id="btnLogOut" layoutX="723.0" layoutY="27.0" mnemonicParsing="false" onAction="#btnLogOutOnAction" prefHeight="25.0" prefWidth="82.0" text="LOGOUT" />
+      <TextField fx:id="txtSearch" layoutX="338.0" layoutY="103.0" onAction="#txtSearchOnAction" onKeyReleased="#txtSearchOnKeyReleased" promptText="Search" />
     </children>
 
 </AnchorPane>

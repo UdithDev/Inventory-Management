@@ -6,6 +6,10 @@ import org.example.entity.Order;
 import org.example.entity.OrderItem;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 import java.io.IOException;
@@ -16,31 +20,23 @@ public class SessionFactoryConfig {
     private final SessionFactory sessionFactory;
 
     private SessionFactoryConfig() {
-        Configuration configuration = new Configuration();
-        configuration.addAnnotatedClass(Customer.class);
-        configuration.addAnnotatedClass(Item.class);
-        configuration.addAnnotatedClass(Order.class);
-        configuration.addAnnotatedClass(OrderItem.class);
-
-        Properties properties = new Properties();
-        try {
-            properties.load(ClassLoader.getSystemClassLoader().getResourceAsStream("hibernate.properties"));
-            configuration.setProperties(properties);
-        } catch (IOException e) {
-            System.out.println("Hibernate properties file not found");
-        }
-
-        sessionFactory = configuration.buildSessionFactory();
+        StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();
+        serviceRegistryBuilder.loadProperties("hibernate.properties");
+        MetadataSources metadataSources = new MetadataSources(serviceRegistryBuilder.build());
+        metadataSources.
+                addAnnotatedClass(Customer.class).
+                addAnnotatedClass(Item.class).
+                addAnnotatedClass(Order.class).
+                addAnnotatedClass(OrderItem.class);
+        Metadata metadata = metadataSources.getMetadataBuilder().build();
+        sessionFactory = metadata.getSessionFactoryBuilder().build();
     }
 
-    public static SessionFactoryConfig getInstance() {
-        if (sessionFactoryConfig == null) {
-            sessionFactoryConfig = new SessionFactoryConfig();
-        }
-        return sessionFactoryConfig;
+    public static SessionFactoryConfig getSessionFactoryConfig(){
+        return sessionFactoryConfig==null? sessionFactoryConfig=new SessionFactoryConfig():sessionFactoryConfig;
     }
 
-    public final Session getSession() {
+    public Session getSession() {
         return sessionFactory.openSession();
     }
 }

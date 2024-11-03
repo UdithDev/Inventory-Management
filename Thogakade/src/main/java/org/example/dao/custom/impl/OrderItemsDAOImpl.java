@@ -15,67 +15,24 @@ import java.util.logging.Logger;
 
 public class OrderItemsDAOImpl implements OrderItemsDAO {
 
+
     @Override
-    public boolean save(OrderItem orderItem) {
-        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
-            Transaction transaction = session.beginTransaction();
-            try {
-                session.save(orderItem);
-                transaction.commit();
-                return true;
-            } catch (Exception e) {
-                if (transaction != null) transaction.rollback();
-                return false;
-            }
-        }
+    public boolean save(OrderItem entity, Session Session) {
+        return false;
     }
 
     @Override
-    public OrderItem findById(ID id) {
-        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
-            return session.get(OrderItem.class, id);
-        }
+    public boolean update(OrderItem entity, Session session) {
+        return false;
     }
 
     @Override
-    public boolean update(OrderItem orderItem) {
-        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
-            Transaction transaction = session.beginTransaction();
-            try {
-                session.save(orderItem);
-                transaction.commit();
-                return true;
-            } catch (Exception e) {
-                if (transaction != null) transaction.rollback();
-                return false;
-            }
-        }
-    }
-
-
-    @Override
-    public boolean delete(String id) {
-        Transaction transaction = null;
-        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
-            transaction = session.beginTransaction();
-            OrderItem orderItem = session.get(OrderItem.class, id);
-            if (orderItem != null) {
-                session.delete(orderItem);
-                transaction.commit();
-                return true;
-            }
-            return false;
-        } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            e.printStackTrace();
-            return false;
-        }
+    public Boolean delete(String id, Session session) {
+        return false;
     }
 
     @Override
-    public List<OrderItem> getAll() {
-        try (Session session = SessionFactoryConfig.getInstance().getSession()) {
-            return session.createQuery("FROM OrderItem", OrderItem.class).list();
-        }
+    public List<OrderItem> getAll(Session session) {
+        return null;
     }
 }

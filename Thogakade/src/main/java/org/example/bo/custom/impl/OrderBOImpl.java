@@ -4,6 +4,7 @@ import org.example.bo.custom.OrderBO;
 import org.example.dto.CustomerDTO;
 import org.example.dto.ItemDTO;
 import org.example.dto.OrderDTO;
+import org.example.dto.SuperDTO;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -37,5 +38,25 @@ public class OrderBOImpl implements OrderBO {
     @Override
     public boolean placeOrder(OrderDTO orderDTO) throws SQLException {
         return false;
+    }
+
+    @Override
+    public Boolean save(SuperDTO entity) {
+        return null;
+    }
+
+    @Override
+    public Boolean update(SuperDTO entity) {
+        return null;
+    }
+
+    @Override
+    public Boolean delete(String id) {
+        return null;
+    }
+
+    @Override
+    public List getAll() {
+        return null;
     }
 }

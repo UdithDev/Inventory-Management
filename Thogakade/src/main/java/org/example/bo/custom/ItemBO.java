@@ -1,14 +1,15 @@
 package org.example.bo.custom;
 
 import org.example.bo.SuperBO;
+import org.example.dto.CustomerDTO;
 import org.example.dto.ItemDTO;
+import org.example.entity.Customer;
+import org.example.entity.Item;
+import org.hibernate.Session;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public interface ItemBO extends SuperBO {
-    void addItem(ItemDTO itemDTO) throws Exception;
-    void UpdateItem(ItemDTO itemDTO) throws Exception;
-    void deleteItem(String code) throws Exception;
-    ItemDTO getItem(String code) throws Exception;
-    ArrayList<ItemDTO> getAllItems() throws Exception;
+public interface ItemBO extends SuperBO<ItemDTO> {
+    List<ItemDTO> searchItemByText(String text);
 }
