@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @ToString
 public class OrdersTM {
-    private String id;
+    private String Order_id;
     private Date orderDate;
     private CustomerDTO customer;
     private List<OrderItemDTO> orderItems;

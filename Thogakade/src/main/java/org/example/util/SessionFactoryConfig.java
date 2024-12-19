@@ -2,7 +2,7 @@ package org.example.util;
 
 import org.example.entity.Customer;
 import org.example.entity.Item;
-import org.example.entity.Order;
+import org.example.entity.Orders;
 import org.example.entity.OrderItem;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -26,7 +26,7 @@ public class SessionFactoryConfig {
         metadataSources.
                 addAnnotatedClass(Customer.class).
                 addAnnotatedClass(Item.class).
-                addAnnotatedClass(Order.class).
+                addAnnotatedClass(Orders.class).
                 addAnnotatedClass(OrderItem.class);
         Metadata metadata = metadataSources.getMetadataBuilder().build();
         sessionFactory = metadata.getSessionFactoryBuilder().build();

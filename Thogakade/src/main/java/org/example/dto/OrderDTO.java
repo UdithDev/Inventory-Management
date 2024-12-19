@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class OrderDTO implements SuperDTO {
-    private String id;
+    private String Order_id;
     private Date orderDate;
     private CustomerDTO customer;
     private List<OrderItemDTO> orderItems;

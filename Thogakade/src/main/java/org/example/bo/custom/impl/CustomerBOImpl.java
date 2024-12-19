@@ -85,7 +85,7 @@ public class CustomerBOImpl implements CustomerBO {
                 return customerList.stream().map(cusromer -> Converter.getInstance().tocustomerDTO(cusromer)).collect(Collectors.toList());
             }
         }
-        throw new RuntimeException("Empty Student list!");
+        throw new RuntimeException("Empty Customer Table!");
     }
 
 

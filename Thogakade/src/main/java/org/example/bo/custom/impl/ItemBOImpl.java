@@ -88,7 +88,7 @@ public class ItemBOImpl implements ItemBO {
                 return itemList.stream().map(item -> Converter.getInstance().toItemDTO(item)).collect(Collectors.toList());
             }
         }
-        throw new RuntimeException("Empty Student list!");
+        throw new RuntimeException("Empty Items Table!");
     }
 
     @Override

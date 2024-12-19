@@ -8,7 +8,7 @@ import org.example.dto.OrderDTO;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface OrderBO extends SuperBO {
+public interface OrderBO extends SuperBO<OrderDTO>{
     String generateNextOrderId() throws SQLException;
 
     List<String> loadCustomerIds() throws SQLException;
@@ -20,4 +20,6 @@ public interface OrderBO extends SuperBO {
     ItemDTO searchByItemCode(String itemCode) throws SQLException;
 
     boolean placeOrder(OrderDTO orderDTO) throws SQLException;
+
+
 }

@@ -3,7 +3,6 @@ package org.example.bo;
 import org.example.bo.custom.impl.CustomerBOImpl;
 import org.example.bo.custom.impl.ItemBOImpl;
 import org.example.bo.custom.impl.OrderBOImpl;
-import org.example.bo.custom.impl.OrderItemsBOImpl;
 import org.example.bo.util.exception.ServiceNotFoundException;
 
 public class BOFactory {
@@ -31,7 +30,6 @@ public class BOFactory {
                 return (T)new OrderBOImpl();
 
             case ORDERITEMS:
-                return (T) new OrderItemsBOImpl();
             default:
                 throw new ServiceNotFoundException("Service not found");
         }

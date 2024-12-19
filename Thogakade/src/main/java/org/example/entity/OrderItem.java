@@ -21,7 +21,7 @@ public class OrderItem implements SuperEntity {
 
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
+    private Orders order;
 
 
     @ManyToOne

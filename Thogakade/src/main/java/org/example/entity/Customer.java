@@ -26,7 +26,7 @@ public class Customer implements SuperEntity {
     private String phone;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Order> orders;
+    private List<Orders> orders;
 
     public Customer(String id, String name, String email, String phone) {
         this.id=id;
