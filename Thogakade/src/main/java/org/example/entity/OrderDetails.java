@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 
 @AllArgsConstructor
@@ -13,15 +14,11 @@ import javax.persistence.*;
 @Data
 @ToString
 @Entity
-@Table(name = "order_items")
-public class OrderItem implements SuperEntity {
+@Table(name = "Order_Details")
+public class OrderDetails implements SuperEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId;
-
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
-    private Orders order;
+    private String orderId;
 
 
     @ManyToOne
@@ -29,7 +26,7 @@ public class OrderItem implements SuperEntity {
     private Item item;
 
     @Column(name = "quantity", nullable = false)
-    private int quantity;
-    @Column(name = "total_price", nullable = false)
-    private double totalPrice;
+    private Integer quantity;
+    @Column(name = "date", nullable = false)
+    private LocalDate date;
 }

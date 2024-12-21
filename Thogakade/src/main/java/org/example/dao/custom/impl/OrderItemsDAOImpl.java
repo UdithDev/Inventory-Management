@@ -1,28 +1,22 @@
 package org.example.dao.custom.impl;
 
-import com.sun.xml.bind.v2.model.core.ID;
-import org.example.entity.OrderItem;
+import org.example.entity.OrderDetails;
 import org.example.dao.custom.OrderItemsDAO;
-import org.example.util.SessionFactoryConfig;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 
 import java.util.List;
-import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class OrderItemsDAOImpl implements OrderItemsDAO {
 
 
     @Override
-    public boolean save(OrderItem entity, Session Session) {
+    public boolean save(OrderDetails entity, Session Session) {
         return false;
     }
 
     @Override
-    public boolean update(OrderItem entity, Session session) {
+    public boolean update(OrderDetails entity, Session session) {
         return false;
     }
 
@@ -32,7 +26,7 @@ public class OrderItemsDAOImpl implements OrderItemsDAO {
     }
 
     @Override
-    public List<OrderItem> getAll(Session session) {
+    public List<OrderDetails> getAll(Session session) {
         return null;
     }
 }

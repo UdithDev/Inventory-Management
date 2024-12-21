@@ -3,17 +3,12 @@ package org.example.util;
 import org.example.entity.Customer;
 import org.example.entity.Item;
 import org.example.entity.Orders;
-import org.example.entity.OrderItem;
+import org.example.entity.OrderDetails;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-
-import java.io.IOException;
-import java.util.Properties;
 
 public class SessionFactoryConfig {
     private static SessionFactoryConfig sessionFactoryConfig;
@@ -27,7 +22,7 @@ public class SessionFactoryConfig {
                 addAnnotatedClass(Customer.class).
                 addAnnotatedClass(Item.class).
                 addAnnotatedClass(Orders.class).
-                addAnnotatedClass(OrderItem.class);
+                addAnnotatedClass(OrderDetails.class);
         Metadata metadata = metadataSources.getMetadataBuilder().build();
         sessionFactory = metadata.getSessionFactoryBuilder().build();
     }

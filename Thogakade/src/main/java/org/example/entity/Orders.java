@@ -20,5 +20,7 @@ import java.util.List;
 public class Orders implements SuperEntity {
     @Id
     private String id;
-    private String customerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customerId;
 }
