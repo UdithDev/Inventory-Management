@@ -8,4 +8,5 @@ import java.util.ArrayList;
 
 public interface CustomerBO extends SuperBO<CustomerDTO> {
     List<CustomerDTO> searchCustomerByText(String text);
+
 }

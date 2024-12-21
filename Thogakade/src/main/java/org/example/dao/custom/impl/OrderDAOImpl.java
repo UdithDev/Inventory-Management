@@ -7,6 +7,7 @@ import org.example.entity.Orders;
 import org.example.util.SessionFactoryConfig;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -51,9 +52,8 @@ public class OrderDAOImpl implements OrdersDAO {
 
     @Override
     public String generateNextOrderId(Session session) throws SQLException {
-        String sql = "SELECT id FROM Orders ORDER BY id DESC LIMIT 1";
-        session.createQuery("SELECT id from orders ORDER BY B")
-        ResultSet resultSet = .execute(sql);
+       Query query= session.createQuery("SELECT orderId from order_items ORDER BY id DESC limit 1");
+        ResultSet resultSet =;
 
         if (resultSet.next()) {
             return splitOrderId(resultSet.getString(1));
