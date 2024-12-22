@@ -2,9 +2,13 @@ package org.example.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import org.example.bo.BOFactory;
+import org.example.bo.SuperBO;
+import org.example.bo.custom.OrderBO;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class PlaceOrderController {
+public class PlaceOrderController implements Initializable {
 
     public TextField txtOrderId;
     public TextField txtOrderDate;
@@ -37,6 +41,9 @@ public class PlaceOrderController {
     public AnchorPane pane;
     public Button btnBack;
 
+    private OrderBO orderBO;
+
+
     public void cmbCustomerIdOnAction(ActionEvent actionEvent) {
     }
 
@@ -56,5 +63,26 @@ public class PlaceOrderController {
     }
 
     public void placeOrderOnAction(ActionEvent actionEvent) {
+    }
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            orderBO = BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDER);
+            generateNextOrderId();
+
+        } catch (RuntimeException exception) {
+            new Alert(Alert.AlertType.ERROR, exception.getMessage()).show();
+        }
+    }
+
+    private void generateNextOrderId() {
+        try {
+            String id = orderBO.generateNextOrderId();
+            txtOrderId.setText(id);
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "please try again...!").show();
+        }
     }
 }

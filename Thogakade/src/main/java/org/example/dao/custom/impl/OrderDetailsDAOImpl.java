@@ -1,13 +1,13 @@
 package org.example.dao.custom.impl;
 
 import org.example.entity.OrderDetails;
-import org.example.dao.custom.OrderItemsDAO;
+import org.example.dao.custom.OrderDetailsDAO;
 import org.hibernate.Session;
 
 
 import java.util.List;
 
-public class OrderItemsDAOImpl implements OrderItemsDAO {
+public class OrderDetailsDAOImpl implements OrderDetailsDAO {
 
 
     @Override

@@ -1,10 +1,9 @@
 package org.example.dao;
 
-import org.example.dao.SuperDAO;
 import org.example.dao.custom.impl.CustomerDAOImpl;
 import org.example.dao.custom.impl.ItemDAOImpl;
 import org.example.dao.custom.impl.OrderDAOImpl;
-import org.example.dao.custom.impl.OrderItemsDAOImpl;
+import org.example.dao.custom.impl.OrderDetailsDAOImpl;
 import org.example.dao.util.exception.DaoNotFoundException;
 
 public class DAOFactory {
@@ -19,7 +18,7 @@ public class DAOFactory {
     }
 
     public enum DAOTypes {
-        CUSTOMER, ITEM, ORDER, ORDERITEM
+        CUSTOMER, ITEM, ORDER, ORDERDETAILS
     }
 
     // Factory method to return the appropriate DAO implementation
@@ -31,8 +30,8 @@ public class DAOFactory {
                 return(T) new ItemDAOImpl();  // Return Item DAO implementation
             case ORDER:
                 return (T)new OrderDAOImpl();  // Return Order DAO implementation
-            case ORDERITEM:
-                return(T) new OrderItemsDAOImpl();  // Return OrderItem DAO implementation
+            case ORDERDETAILS:
+                return(T) new OrderDetailsDAOImpl();  // Return OrderItem DAO implementation
             default:
                 throw new DaoNotFoundException("DAO not found");
         }

@@ -17,7 +17,7 @@ public class BOFactory {
     }
 
     public enum BOTypes{
-        CUSTOMER, ITEM, ORDER, ORDERITEMS
+        CUSTOMER, ITEM, ORDER, ORDERDETAILS
     }
 
     public <T extends SuperBO> T getBO(BOTypes boTypes)  throws ServiceNotFoundException {
@@ -29,7 +29,7 @@ public class BOFactory {
             case ORDER:
                 return (T)new OrderBOImpl();
 
-            case ORDERITEMS:
+            case ORDERDETAILS:
             default:
                 throw new ServiceNotFoundException("Service not found");
         }

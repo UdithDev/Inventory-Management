@@ -50,16 +50,13 @@ public class OrderDAOImpl implements OrdersDAO {
         return null;
     }
 
-    @Override
-    public String generateNextOrderId(Session session) throws SQLException {
-        Query query = session.createQuery("SELECT id from Orders ORDER BY id DESC limit 1");
-        query.setMaxResults(1);
-        List resultSet = query.list();
 
-        if (!resultSet.isEmpty()) {
-            return splitOrderId((String) resultSet.get(1));
-        }
-        return splitOrderId(null);
+    @Override
+    public String generateNextOrderId(Session session) {
+        Query<String> query = session.createQuery("SELECT id FROM Orders ORDER BY id DESC", String.class);
+        query.setMaxResults(1);// Fetch the most recent order ID
+        List<String> resultSet = query.list();
+        return (resultSet.isEmpty()) ? splitOrderId(null) : splitOrderId(resultSet.get(0));
 
     }
 }
