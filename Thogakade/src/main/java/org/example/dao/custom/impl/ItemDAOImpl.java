@@ -47,6 +47,11 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
+    public Item search(String id) {
+        return null;
+    }
+
+    @Override
     public List<Item> searchItemByText(String text, Session session) {
         Query query = session.createQuery("FROM Item  WHERE description LIKE '%" + text + "%'");
         List<Item> list = query.list();

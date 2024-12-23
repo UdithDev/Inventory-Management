@@ -10,6 +10,7 @@ import org.example.dto.CustomerDTO;
 import org.example.dto.ItemDTO;
 import org.example.dto.OrderDTO;
 import org.example.dto.SuperDTO;
+import org.example.entity.Customer;
 import org.example.util.SessionFactoryConfig;
 import org.hibernate.Session;
 
@@ -39,12 +40,20 @@ public class OrderBOImpl implements OrderBO {
 
     @Override
     public List<String> loadCustomerIds() throws SQLException {
-        return null;
+        try (Session session = SessionFactoryConfig.getSessionFactoryConfig().getSession()) {
+            session.beginTransaction();
+            List<String> customerIds = customerDAO.loadCustomerIds(session);
+            session.getTransaction().commit();
+            return customerIds;
+        } catch (Exception e) {
+            throw new SQLException("Failed to load customer IDs.", e);
+        }
     }
 
     @Override
     public CustomerDTO searchByCustomerId(String customerId) throws SQLException {
-        return null;
+        Customer c=customerDAO.search(customerId);
+        return new CustomerDTO(c.getId(), c.getName(), c.getEmail(),c.getPhone());
     }
 
     @Override

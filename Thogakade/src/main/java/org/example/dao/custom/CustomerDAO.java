@@ -10,4 +10,5 @@ import java.util.List;
 
 public interface CustomerDAO extends CrudDAO<Customer> {
     List<Customer> searchCustomerByText(String text, Session session);
+    List<String> loadCustomerIds(Session session) throws SQLException;
 }

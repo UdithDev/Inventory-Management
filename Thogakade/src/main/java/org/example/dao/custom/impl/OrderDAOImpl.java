@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static com.mysql.cj.conf.PropertyKey.logger;
+import static com.mysql.cj.conf.PropertyKey.traceProtocol;
 
 public class OrderDAOImpl implements OrdersDAO {
 
@@ -31,8 +32,9 @@ public class OrderDAOImpl implements OrdersDAO {
     }
 
     @Override
-    public boolean save(Orders entity, Session Session) {
-        return false;
+    public boolean save(Orders entity, Session session) {
+        session.save(entity);
+        return true;
     }
 
     @Override
@@ -47,6 +49,11 @@ public class OrderDAOImpl implements OrdersDAO {
 
     @Override
     public List<Orders> getAll(Session session) {
+        return null;
+    }
+
+    @Override
+    public Orders search(String id) {
         return null;
     }
 

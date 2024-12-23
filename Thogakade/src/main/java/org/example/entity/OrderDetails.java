@@ -17,7 +17,6 @@ import java.time.LocalDate;
 @Table(name = "Order_Details")
 public class OrderDetails implements SuperEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String orderId;
 
 

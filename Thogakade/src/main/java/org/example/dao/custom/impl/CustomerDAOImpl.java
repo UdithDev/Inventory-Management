@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -46,11 +47,22 @@ public class CustomerDAOImpl implements CustomerDAO {
         return list;
     }
 
+    @Override
+    public Customer search(String id) {
+        return null;
+    }
+
 
     @Override
     public List<Customer> searchCustomerByText(String text, Session session) {
         Query query = session.createQuery("FROM Customer  WHERE name LIKE '%" + text + "%'");
         List<Customer> list = query.list();
         return list;
+    }
+
+    @Override
+    public List<String> loadCustomerIds(Session session) throws SQLException {
+        Query<String> query = session.createQuery("SELECT id FROM Customer order by id ASC", String.class);
+        return query.list();
     }
 }

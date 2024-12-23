@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import org.example.bo.BOFactory;
 import org.example.bo.SuperBO;
 import org.example.bo.custom.OrderBO;
+import org.example.dto.CustomerDTO;
 
 import java.io.IOException;
 import java.net.URL;
@@ -45,6 +48,16 @@ public class PlaceOrderController implements Initializable {
 
 
     public void cmbCustomerIdOnAction(ActionEvent actionEvent) {
+        System.out.println("CmbCustomerIdOnAction");
+        String id = (String) cmbCustomerId.getValue();
+        cmbCustomerId.setDisable(true);
+
+        try {
+            CustomerDTO customerDTO = orderBO.searchByCustomerId(id);
+            txtCustomerName.setText(customerDTO.getName());
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "please try again...!").show();
+        }
     }
 
     public void cmbItemCodeOnAction(ActionEvent actionEvent) {
@@ -71,6 +84,8 @@ public class PlaceOrderController implements Initializable {
         try {
             orderBO = BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDER);
             generateNextOrderId();
+            setOrderDate();
+            loadCustomerIds();
 
         } catch (RuntimeException exception) {
             new Alert(Alert.AlertType.ERROR, exception.getMessage()).show();
@@ -81,6 +96,24 @@ public class PlaceOrderController implements Initializable {
         try {
             String id = orderBO.generateNextOrderId();
             txtOrderId.setText(id);
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "please try again...!").show();
+        }
+    }
+
+    private void setOrderDate() {
+        txtOrderDate.setText(String.valueOf(LocalDate.now()));
+    }
+
+    private void loadCustomerIds() {
+        try {
+            ObservableList<String> observableList = FXCollections.observableArrayList();
+            List<String> customerId = orderBO.loadCustomerIds();
+
+            for (String id : customerId) {
+                observableList.add(id);
+            }
+            cmbCustomerId.setItems(observableList);
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, "please try again...!").show();
         }

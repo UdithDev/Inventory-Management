@@ -9,7 +9,6 @@ import java.util.List;
 
 public class OrderDetailsDAOImpl implements OrderDetailsDAO {
 
-
     @Override
     public boolean save(OrderDetails entity, Session Session) {
         return false;
@@ -27,6 +26,11 @@ public class OrderDetailsDAOImpl implements OrderDetailsDAO {
 
     @Override
     public List<OrderDetails> getAll(Session session) {
+        return null;
+    }
+
+    @Override
+    public OrderDetails search(String id) {
         return null;
     }
 }
