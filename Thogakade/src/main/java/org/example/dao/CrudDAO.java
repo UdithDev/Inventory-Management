@@ -22,7 +22,7 @@ public interface CrudDAO<T extends SuperEntity> extends SuperDAO {
     // Get all entities
     List<T> getAll(Session session);
 
-    T search(String id);
+    T search(String id,Session session);
 
 
 }

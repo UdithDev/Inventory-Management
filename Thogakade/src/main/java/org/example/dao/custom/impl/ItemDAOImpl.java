@@ -47,7 +47,7 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public Item search(String id) {
+    public Item search(String id,Session session) {
         return null;
     }
 

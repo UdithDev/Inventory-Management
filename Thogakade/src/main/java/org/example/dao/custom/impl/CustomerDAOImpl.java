@@ -48,8 +48,8 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public Customer search(String id) {
-        return null;
+    public Customer search(String id, Session session) {
+        return session.get(Customer.class, id);
     }
 
 

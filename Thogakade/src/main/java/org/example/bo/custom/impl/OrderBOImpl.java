@@ -52,8 +52,15 @@ public class OrderBOImpl implements OrderBO {
 
     @Override
     public CustomerDTO searchByCustomerId(String customerId) throws SQLException {
-        Customer c=customerDAO.search(customerId);
-        return new CustomerDTO(c.getId(), c.getName(), c.getEmail(),c.getPhone());
+        try (Session session = SessionFactoryConfig.getSessionFactoryConfig().getSession()) {
+            session.beginTransaction();
+            Customer customer = customerDAO.search(customerId, session);
+            session.getTransaction().commit();
+            if (customer == null) {
+                return null;
+            }
+            return new CustomerDTO(customer.getId(), customer.getName(), customer.getEmail(), customer.getPhone());
+        }
     }
 
     @Override

@@ -57,6 +57,7 @@ public class PlaceOrderController implements Initializable {
             txtCustomerName.setText(customerDTO.getName());
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, "please try again...!").show();
+            e.printStackTrace();
         }
     }
 

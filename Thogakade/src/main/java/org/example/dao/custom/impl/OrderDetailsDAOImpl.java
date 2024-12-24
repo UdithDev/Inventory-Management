@@ -30,7 +30,7 @@ public class OrderDetailsDAOImpl implements OrderDetailsDAO {
     }
 
     @Override
-    public OrderDetails search(String id) {
+    public OrderDetails search(String id, Session session) {
         return null;
     }
 }

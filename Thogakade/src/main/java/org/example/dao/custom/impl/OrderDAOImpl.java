@@ -53,7 +53,7 @@ public class OrderDAOImpl implements OrdersDAO {
     }
 
     @Override
-    public Orders search(String id) {
+    public Orders search(String id,Session session) {
         return null;
     }
 
