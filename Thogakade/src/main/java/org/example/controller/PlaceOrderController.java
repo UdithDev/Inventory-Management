@@ -12,9 +12,11 @@ import org.example.bo.BOFactory;
 import org.example.bo.SuperBO;
 import org.example.bo.custom.OrderBO;
 import org.example.dto.CustomerDTO;
+import org.example.dto.ItemDTO;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -62,6 +64,20 @@ public class PlaceOrderController implements Initializable {
     }
 
     public void cmbItemCodeOnAction(ActionEvent actionEvent) {
+        String code = (String) cmbItemCode.getValue();
+        try {
+            ItemDTO itemDTO = orderBO.searchByItemCode(code);
+            fillItemFields(itemDTO);
+            txtQty.requestFocus();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "please try again...!").show();
+        }
+    }
+
+    private void fillItemFields(ItemDTO itemDTO) {
+        txtDescription.setText(itemDTO.getDescription());
+        txtUnitPrice.setText(String.valueOf(itemDTO.getPrice()));
+        txtQtyOnHand.setText(String.valueOf(itemDTO.getQtyOnHand()));
     }
 
     public void addToCartOnAction(ActionEvent actionEvent) {
@@ -87,6 +103,7 @@ public class PlaceOrderController implements Initializable {
             generateNextOrderId();
             setOrderDate();
             loadCustomerIds();
+            loadItemCodes();
 
         } catch (RuntimeException exception) {
             new Alert(Alert.AlertType.ERROR, exception.getMessage()).show();
@@ -116,6 +133,21 @@ public class PlaceOrderController implements Initializable {
             }
             cmbCustomerId.setItems(observableList);
         } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "please try again...!").show();
+        }
+    }
+
+    private void loadItemCodes() {
+        try {
+            ObservableList<String> observableList = FXCollections.observableArrayList();
+            List<String> itemcodes = orderBO.loadItemCodes();
+
+            for (String code : itemcodes) {
+                observableList.add(code);
+            }
+            cmbItemCode.setItems(observableList);
+
+        } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "please try again...!").show();
         }
     }

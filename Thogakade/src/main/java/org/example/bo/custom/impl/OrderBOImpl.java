@@ -11,6 +11,7 @@ import org.example.dto.ItemDTO;
 import org.example.dto.OrderDTO;
 import org.example.dto.SuperDTO;
 import org.example.entity.Customer;
+import org.example.entity.Item;
 import org.example.util.SessionFactoryConfig;
 import org.hibernate.Session;
 
@@ -65,12 +66,27 @@ public class OrderBOImpl implements OrderBO {
 
     @Override
     public List<String> loadItemCodes() throws SQLException {
-        return null;
+        try (Session session = SessionFactoryConfig.getSessionFactoryConfig().getSession().getSession()) {
+            session.beginTransaction();
+            List<String> itemCodes = itemDAO.loadItemCodes(session);
+            session.getTransaction().commit();
+            return itemCodes;
+        } catch (Exception e) {
+            throw new SQLException("Failed to load Items code.", e);
+        }
     }
 
     @Override
     public ItemDTO searchByItemCode(String itemCode) throws SQLException {
-        return null;
+        try (Session session = SessionFactoryConfig.getSessionFactoryConfig().getSession()) {
+            session.beginTransaction();
+            Item item = itemDAO.search(itemCode, session);
+            session.getTransaction().commit();
+            if (item == null) {
+                return null;
+            }
+            return new ItemDTO(item.getCode(), item.getDescription(), item.getPrice(), item.getQtyOnHand());
+        }
     }
 
     @Override

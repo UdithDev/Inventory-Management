@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ItemDAOImpl implements ItemDAO {
@@ -47,8 +48,8 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public Item search(String id,Session session) {
-        return null;
+    public Item search(String id, Session session) {
+        return session.get(Item.class, id);
     }
 
     @Override
@@ -56,5 +57,12 @@ public class ItemDAOImpl implements ItemDAO {
         Query query = session.createQuery("FROM Item  WHERE description LIKE '%" + text + "%'");
         List<Item> list = query.list();
         return list;
+    }
+
+    @Override
+    public List<String> loadItemCodes(Session session) throws SQLException {
+        Query<String> query = session.createQuery("SELECT code from Item order by code asc ", String.class);
+        return query.list();
+
     }
 }
