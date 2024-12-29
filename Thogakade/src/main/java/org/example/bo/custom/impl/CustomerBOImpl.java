@@ -82,7 +82,7 @@ public class CustomerBOImpl implements CustomerBO {
         try (session) {
             List<Customer> customerList = customerDAO.getAll(session);
             if (customerList.size() > 0) {
-                return customerList.stream().map(cusromer -> Converter.getInstance().tocustomerDTO(cusromer)).collect(Collectors.toList());
+                return customerList.stream().map(customer -> Converter.getInstance().tocustomerDTO(customer)).collect(Collectors.toList());
             }
         }
         throw new RuntimeException("Empty Customer Table!");

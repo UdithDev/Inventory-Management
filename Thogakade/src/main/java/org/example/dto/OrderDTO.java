@@ -15,6 +15,6 @@ import java.util.List;
 @Data
 public class OrderDTO implements SuperDTO {
     private String id;
-    private Customer customerId;
-    private List<OrderDetailsDTO> orderDetailsDTOS;
+    private String customerId;
+    private List<OrderDetailsDTO> orderDetails;
 }

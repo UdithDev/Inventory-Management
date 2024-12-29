@@ -8,9 +8,7 @@ import lombok.ToString;
 
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
-@ToString
 public class OrdersTM {
     private String code;
     private String description;

@@ -24,5 +24,4 @@ public interface CrudDAO<T extends SuperEntity> extends SuperDAO {
 
     T search(String id,Session session);
 
-
 }

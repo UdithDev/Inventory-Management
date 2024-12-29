@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
@@ -78,6 +79,9 @@
             <font>
                 <Font name="Times New Roman Bold" size="17.0" />
             </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
         </Button>
 
         <!-- Order Cart Table -->
@@ -111,6 +115,9 @@
             <font>
                 <Font name="Times New Roman Bold" size="17.0" />
             </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
         </Button>
 
     </children>

@@ -13,8 +13,9 @@ import java.time.LocalDate;
 @Data
 @ToString
 public class OrderDetailsDTO implements SuperDTO {
-    private String orderId;
-    private Item item;
+    private String id;
+    private String item;
     private Integer quantity;
     private LocalDate date;
+    private String orderId;
 }

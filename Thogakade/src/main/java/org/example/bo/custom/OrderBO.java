@@ -20,6 +20,4 @@ public interface OrderBO extends SuperBO<OrderDTO>{
     ItemDTO searchByItemCode(String itemCode) throws SQLException;
 
     boolean placeOrder(OrderDTO orderDTO) throws SQLException;
-
-
 }

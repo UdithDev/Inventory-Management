@@ -17,15 +17,14 @@ import java.time.LocalDate;
 @Table(name = "Order_Details")
 public class OrderDetails implements SuperEntity {
     @Id
-    private String orderId;
-
-
-    @ManyToOne
-    @JoinColumn(name = "item_id", nullable = false)
-    private Item item;
-
+    private String id;
+    private String item;
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
     @Column(name = "date", nullable = false)
     private LocalDate date;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false)
+    private Orders order;
 }

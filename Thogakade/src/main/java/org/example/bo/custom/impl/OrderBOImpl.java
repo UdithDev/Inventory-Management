@@ -1,17 +1,18 @@
 package org.example.bo.custom.impl;
 
+import javafx.scene.control.Alert;
 import org.example.bo.custom.OrderBO;
+import org.example.bo.util.Converter;
 import org.example.dao.DAOFactory;
 import org.example.dao.custom.CustomerDAO;
 import org.example.dao.custom.ItemDAO;
 import org.example.dao.custom.OrderDetailsDAO;
 import org.example.dao.custom.OrdersDAO;
-import org.example.dto.CustomerDTO;
-import org.example.dto.ItemDTO;
-import org.example.dto.OrderDTO;
-import org.example.dto.SuperDTO;
+import org.example.dto.*;
 import org.example.entity.Customer;
 import org.example.entity.Item;
+import org.example.entity.OrderDetails;
+import org.example.entity.Orders;
 import org.example.util.SessionFactoryConfig;
 import org.hibernate.Session;
 
@@ -24,12 +25,14 @@ public class OrderBOImpl implements OrderBO {
     private final CustomerDAO customerDAO;
     private final ItemDAO itemDAO;
     private final OrderDetailsDAO orderDetailsDAO;
+    private final Converter converter;
 
     public OrderBOImpl() {
         ordersDAO = DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDER);
         orderDetailsDAO = DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDERDETAILS);
         customerDAO = DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
         itemDAO = DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
+        converter = Converter.getInstance();
     }
 
     @Override
@@ -60,7 +63,7 @@ public class OrderBOImpl implements OrderBO {
             if (customer == null) {
                 return null;
             }
-            return new CustomerDTO(customer.getId(), customer.getName(), customer.getEmail(), customer.getPhone());
+            return converter.tocustomerDTO(customer);
         }
     }
 
@@ -85,13 +88,65 @@ public class OrderBOImpl implements OrderBO {
             if (item == null) {
                 return null;
             }
-            return new ItemDTO(item.getCode(), item.getDescription(), item.getPrice(), item.getQtyOnHand());
+            return converter.toItemDTO(item);
         }
     }
 
     @Override
     public boolean placeOrder(OrderDTO orderDTO) throws SQLException {
-        return false;
+        try (Session session = SessionFactoryConfig.getSessionFactoryConfig().getSession()) {
+            session.beginTransaction();
+
+            Orders orderEntity = converter.toOrdersEntity(
+                    orderDTO, customerDAO.search(orderDTO.getCustomerId(), session), null
+            );
+            boolean isOrderSave = ordersDAO.save(orderEntity, session);
+            if (!isOrderSave) {
+                session.getTransaction().rollback();
+                return false;
+            }
+
+            for (OrderDetailsDTO detailsDTO : orderDTO.getOrderDetails()) {
+                Item item = itemDAO.search(detailsDTO.getItem(), session);
+                if (item == null) {
+                    session.getTransaction().rollback();
+                    throw new SQLException("Item with code " + detailsDTO.getItem() + " not found.");
+                }
+
+                int updatedQty = item.getQtyOnHand() - detailsDTO.getQuantity();
+                if (updatedQty < 0) {
+                    session.getTransaction().rollback();
+                    throw new SQLException("Insufficient stock for item: " + item.getCode());
+                }
+
+                item.setQtyOnHand(updatedQty);
+                boolean isItemUpdated = itemDAO.update(item, session);
+                if (!isItemUpdated) {
+                    session.getTransaction().rollback();
+                    return false;
+                }
+
+                OrderDetails orderDetailsEntity = converter.toOrderDetailsEntity(detailsDTO, orderEntity);
+                boolean isOrderDetailsSaved = orderDetailsDAO.save(orderDetailsEntity, session);
+                if (!isOrderDetailsSaved) {
+                    session.getTransaction().rollback();
+                    return false;
+                }
+            }
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            showErrorAlert("Failed to place the order: " + e.getMessage());
+            throw new SQLException("Failed to place the order.", e);
+        }
+    }
+
+    private void showErrorAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Order Placement Error");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 
